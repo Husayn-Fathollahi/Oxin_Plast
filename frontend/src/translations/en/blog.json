@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "listingTitle": "Blog",
+    "listingDescription": "Latest articles and news from the plastics industry"
+  },
+  "listing": {
+    "title": "Blog",
+    "readMore": "Read more"
+  },
+  "detail": {
+    "publishedOn": "Published on",
+    "tags": "Tags",
+    "relatedArticles": "Related Articles"
+  }
+}

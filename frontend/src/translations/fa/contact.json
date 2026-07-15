@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "title": "تماس با ما",
+    "description": "با تیم ما در تماس باشید — پاسخگویی در کمتر از ۲۴ ساعت"
+  },
+  "title": "تماس با ما",
+  "subtitle": "سوال، پیشنهاد یا درخواست همکاری دارید؟ ما اینجاییم.",
+  "info": {
+    "title": "اطلاعات تماس",
+    "phone": "تلفن تماس",
+    "email": "ایمیل",
+    "address": "آدرس",
+    "workingHours": "ساعات کاری",
+    "workingHoursValue": "شنبه تا پنج شنبه ، ۸ تا ۱۸"
+  },
+  "promise": {
+    "title": "پاسخگویی سریع",
+    "body": "تیم ما متعهد است ظرف ۲۴ ساعت کاری به پیام شما پاسخ دهد. برای موارد فوری با شماره تلفن مستقیم تماس بگیرید."
+  },
+  "form": {
+    "sectionTitle": "ارسال پیام",
+    "sectionSubtitle": "فرم زیر را تکمیل کنید، در اسرع وقت پاسخ می‌دهیم.",
+    "name": "نام و نام خانوادگی",
+    "namePlaceholder": "مثال: علی محمدی",
+    "email": "ایمیل (اختیاری)",
+    "emailPlaceholder": "example@email.com",
+    "phone": "شماره تلفن",
+    "phonePlaceholder": "۰۹۱۲۳۴۵۶۷۸۹",
+    "subject": "موضوع",
+    "subjectPlaceholder": "موضوع پیام شما",
+    "message": "پیام",
+    "messagePlaceholder": "پیام خود را اینجا بنویسید...",
+    "submit": "ارسال پیام",
+    "sending": "در حال ارسال...",
+    "successTitle": "پیام شما ارسال شد!",
+    "successMessage": "با تشکر از تماس شما. به زودی پاسخ خواهیم داد.",
+    "sendAnother": "ارسال پیام جدید",
+    "errorMessage": "خطا در ارسال پیام. لطفاً دوباره تلاش کنید."
+  },
+  "validation": {
+    "nameRequired": "نام الزامی است",
+    "emailInvalid": "لطفاً یک آدرس ایمیل معتبر وارد کنید",
+    "phoneRequired": "شماره تلفن الزامی است",
+    "messageRequired": "پیام الزامی است"
+  }
+}

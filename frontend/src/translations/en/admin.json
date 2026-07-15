@@ -1,0 +1,16 @@
+{
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "products": "Products",
+    "messages": "Messages",
+    "blog": "Blog"
+  },
+  "dashboard": {
+    "title": "Dashboard Overview",
+    "cards": {
+      "products": "Total Products",
+      "messages": "Unread Messages",
+      "visits": "Site Visits"
+    }
+  }
+}

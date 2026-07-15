@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "listingTitle": "محصولات",
+    "listingDescription": "مشاهده کامل محصولات پلاستیکی صنعتی ما"
+  },
+  "listing": {
+    "title": "محصولات ما",
+    "filterLabel": "فیلتر بر اساس دسته‌بندی",
+    "empty": "محصولی در این دسته یافت نشد"
+  },
+  "categories": {
+    "all": "همه محصولات",
+    "kitchenware": "ظروف آشپزخانه و پذیرایی",
+    "cooling-storage": "کلمن و محصولات برودتی",
+    "industrial-gallons": "گالن و مخازن صنعتی",
+    "bulk-barrels": "بشکه‌های پلی‌اتیلن",
+    "home-accessories": "لوازم بهداشتی و جانبی"
+  },
+  "detail": {
+    "specs": "مشخصات فنی",
+    "specLabel": "مشخصه",
+    "valueLabel": "مقدار",
+    "downloadCatalog": "دانلود کاتالوگ PDF",
+    "relatedProducts": "محصولات مرتبط",
+    "description": "توضیحات",
+    "requestQuote": "درخواست استعلام قیمت",
+    "contactSales": "تماس با تیم فروش",
+    "whatsapp": "گفتگو در واتساپ"
+  }
+}

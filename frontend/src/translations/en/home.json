@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "title": "Oxin Plast — Industrial Manufacturer",
+    "description": "Industrial plastic manufacturer since 1990"
+  },
+  "hero": {
+    "headline": "Industrial Plastic Manufacturing",
+    "subheadline": "High-quality pipes, fittings, and plastic solutions",
+    "cta": "View Products"
+  },
+  "featuredProducts": {
+    "title": "Featured Products"
+  },
+  "whyUs": {
+    "title": "Why Choose Us?"
+  },
+  "latestBlog": {
+    "title": "Latest Articles"
+  },
+  "features": {
+    "title": "Why Choose Us?",
+    "item1": { "title": "High Durability", "desc": "Made from premium-grade raw materials for a long service life" },
+    "item2": { "title": "Quality Certified", "desc": "All products comply with national ISIRI and international ISO standards" },
+    "item3": { "title": "Fast Delivery", "desc": "Nationwide shipping via our dedicated fleet in the shortest possible time" }
+  },
+  "products": {
+    "title": "Our Products",
+    "item1": { "title": "PVC Pipes", "category": "Pipes & Fittings" },
+    "item2": { "title": "Industrial Fittings", "category": "Fittings" },
+    "item3": { "title": "Plastic Products", "category": "General Products" },
+    "viewAll": "View All Products"
+  }
+}

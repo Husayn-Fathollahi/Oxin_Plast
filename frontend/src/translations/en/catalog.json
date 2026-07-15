@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "title": "Product Catalog",
+    "description": "Download the complete PDF catalog of our products."
+  },
+  "title": "Product Catalog",
+  "description": "Download the complete PDF catalog of our products.",
+  "cardTitle": "Full Product Catalog",
+  "cardDescription": "Click the button below to view or download the PDF catalog.",
+  "downloadButton": "Download Catalog",
+  "format": "PDF Format",
+  "range": "Full product range",
+  "opensInNewTab": "Opens in new tab",
+  "note": "The catalog is available as a downloadable PDF. If the file does not load, please contact us directly."
+}

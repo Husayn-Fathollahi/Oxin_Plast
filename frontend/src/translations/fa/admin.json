@@ -1,0 +1,16 @@
+{
+  "sidebar": {
+    "dashboard": "داشبورد",
+    "products": "محصولات",
+    "messages": "پیام‌ها",
+    "blog": "وبلاگ"
+  },
+  "dashboard": {
+    "title": "نمای کلی داشبورد",
+    "cards": {
+      "products": "کل محصولات",
+      "messages": "پیام‌های خوانده‌نشده",
+      "visits": "بازدید سایت"
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "blog": "Blog",
+    "catalog": "Catalog",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "about": {
+    "meta": {
+      "title": "About Us",
+      "description": "Learn about Oxin Plast — our history, values, and industrial plastic manufacturing expertise since 1990."
+    }
+  },
+  "langSwitch": {
+    "current": "EN",
+    "switchTo": "FA",
+    "label": "Switch language to Persian"
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "about": "About the Company",
+    "desc": "Industrial plastic containers and jerry can manufacturer since 1990",
+    "quickLinks": "Quick Links",
+    "products": "Products",
+    "contactInfo": "Contact Info",
+    "followUs": "Follow Us"
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "subtitle": "We'll get back to you as soon as possible",
+    "name": "Full Name",
+    "email": "Email Address",
+    "message": "Your Message",
+    "submit": "Send Message",
+    "success": "Your message has been sent successfully ✔️",
+    "successSub": "We'll get back to you within 24 hours.",
+    "namePlaceholder": "e.g. John Smith",
+    "emailPlaceholder": "example@email.com",
+    "messagePlaceholder": "Write your message here..."
+  },
+  "loading": "Loading...",
+  "error": "An error occurred",
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "The page you are looking for does not exist or has been moved.",
+    "backHome": "Back to Home"
+  }
+}
+

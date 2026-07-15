@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "listingTitle": "وبلاگ",
+    "listingDescription": "آخرین مقالات و اخبار صنعت پلاستیک"
+  },
+  "listing": {
+    "title": "وبلاگ",
+    "readMore": "ادامه مطلب"
+  },
+  "detail": {
+    "publishedOn": "منتشر شده در",
+    "tags": "برچسب‌ها",
+    "relatedArticles": "مقالات مرتبط"
+  }
+}

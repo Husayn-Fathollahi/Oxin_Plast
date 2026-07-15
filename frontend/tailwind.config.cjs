@@ -1,0 +1,161 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: 'class',
+  content: [
+    './src/app/**/*.{ts,tsx}',
+    './src/components/**/*.{ts,tsx}',
+    './src/features/**/*.{ts,tsx}',
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        sans:    ['var(--font-sans)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-display)', 'system-ui', 'sans-serif'],
+        latin:   ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        persian: ['var(--font-vazirmatn)', 'system-ui', 'sans-serif'],
+        serif:   ['var(--font-playfair)', 'Georgia', 'Cambria', 'serif'],
+      },
+      colors: {
+        // Warm paper neutrals - the canvas
+        sand: {
+          50:  '#FBFBF8',
+          100: '#F4F4EE',
+          200: '#E9E9E0',
+          300: '#D7D7CB',
+          400: '#B2B2A2',
+          500: '#84847A',
+          600: '#5E5E52',
+          700: '#44443B',
+          800: '#2B2B25',
+          900: '#1A1A15',
+          950: '#0E0E0A',
+        },
+        // PRIMARY - Emerald / Teal "Spruce"
+        brand: {
+          50:  '#ECFDF6',
+          100: '#D0FBE8',
+          200: '#A4F4D4',
+          300: '#69E9BC',
+          400: '#2FD6A0',
+          500: '#0FBF88',
+          600: '#039A6E',
+          700: '#017B59',
+          800: '#06614A',
+          900: '#06503E',
+          950: '#002D23',
+        },
+        // ACCENT - Coral / Tangerine
+        coral: {
+          50:  '#FFF4ED',
+          100: '#FFE5D5',
+          200: '#FFC5AA',
+          300: '#FF9D74',
+          400: '#FF6F3C',
+          500: '#FB5217',
+          600: '#EC390C',
+          700: '#C42A0D',
+          800: '#9C2412',
+          900: '#7E2213',
+          950: '#440D06',
+        },
+        // SUPPORT - Sunny Gold / Amber
+        gold: {
+          50:  '#FFFBEB',
+          100: '#FFF3C4',
+          200: '#FCE588',
+          300: '#FADB5F',
+          400: '#F7C948',
+          500: '#F0B429',
+          600: '#DE911D',
+          700: '#CB6E17',
+          800: '#B44D12',
+          900: '#8D2B0B',
+        },
+        // SUPPORT - Sky / Cobalt
+        sky: {
+          50:  '#EEF4FF',
+          100: '#D9E6FF',
+          200: '#BCD3FF',
+          300: '#8EB5FF',
+          400: '#598BFF',
+          500: '#3461FF',
+          600: '#1E3FF5',
+          700: '#172DE0',
+          800: '#1926B5',
+          900: '#1B278F',
+        },
+        // Deep ink (text) - not pure black
+        ink: {
+          DEFAULT: '#0F1C17',
+          soft:    '#33403A',
+          muted:   '#5C6862',
+        },
+        // Kept for admin / legacy pages
+        ch: {
+          50: '#F0EDE8', 100: '#D8D4CD', 200: '#A8A49E', 300: '#706C66',
+          400: '#4A4744', 500: '#333130', 600: '#252322', 700: '#1A1817',
+          800: '#111110', 900: '#0A0A0A', 950: '#050505',
+        },
+        navy: {
+          50: '#EEF2FF', 100: '#E0E7FF', 500: '#1E3A5F', 600: '#162D4A',
+          700: '#0F2037', 800: '#0A1628', 900: '#060E1A', 950: '#03070E',
+        },
+        stone: {
+          50: '#FAFAF9', 100: '#F5F5F4', 200: '#E7E5E4', 300: '#D6D3D1',
+          400: '#A8A29E', 500: '#78716C', 600: '#57534E', 700: '#44403C',
+          800: '#292524', 900: '#1C1917', 950: '#0C0A09',
+        },
+      },
+      container: {
+        center: true,
+        padding: { DEFAULT: '1.5rem', sm: '2rem', lg: '3rem', xl: '4rem' },
+        screens: { '2xl': '1320px' },
+      },
+      borderRadius: {
+        '4xl': '2rem',
+        '5xl': '2.5rem',
+      },
+      boxShadow: {
+        'soft':   '0 2px 8px -2px rgba(15,28,23,0.06), 0 6px 20px -4px rgba(15,28,23,0.08)',
+        'lift':   '0 8px 30px -6px rgba(15,28,23,0.10), 0 18px 50px -12px rgba(15,28,23,0.14)',
+        'glow':   '0 10px 40px -8px rgba(15,191,136,0.45)',
+        'glow-coral': '0 10px 40px -8px rgba(251,82,23,0.40)',
+        'ring-soft': '0 0 0 1px rgba(15,28,23,0.05)',
+      },
+      backgroundImage: {
+        'mesh': 'radial-gradient(at 0% 0%, rgba(15,191,136,0.12) 0px, transparent 50%), radial-gradient(at 98% 2%, rgba(52,97,255,0.10) 0px, transparent 50%), radial-gradient(at 50% 100%, rgba(251,82,23,0.08) 0px, transparent 50%)',
+        'brand-gradient': 'linear-gradient(135deg, #0FBF88 0%, #039A6E 100%)',
+        'coral-gradient': 'linear-gradient(135deg, #FF6F3C 0%, #FB5217 100%)',
+        'sunset': 'linear-gradient(120deg, #0FBF88 0%, #34D6A0 40%, #F7C948 100%)',
+      },
+      animation: {
+        'fade-up':   'fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards',
+        'fade-in':   'fadeIn 0.7s ease-out forwards',
+        'fade-down': 'fadeDown 0.8s cubic-bezier(0.16,1,0.3,1) forwards',
+        'scale-in':  'scaleIn 0.6s cubic-bezier(0.16,1,0.3,1) forwards',
+        'float':     'float 6s ease-in-out infinite',
+        'float-slow':'float 9s ease-in-out infinite',
+        'spin-slow': 'spin 18s linear infinite',
+        'gradient':  'gradientShift 8s ease infinite',
+        'marquee':   'marquee 28s linear infinite',
+        'pulse-ring':'pulseRing 2.4s cubic-bezier(0.4,0,0.6,1) infinite',
+        'shimmer':   'shimmer 2.2s linear infinite',
+      },
+      keyframes: {
+        fadeUp:   { '0%': { opacity: '0', transform: 'translateY(34px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+        fadeDown: { '0%': { opacity: '0', transform: 'translateY(-24px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+        fadeIn:   { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+        scaleIn:  { '0%': { opacity: '0', transform: 'scale(0.94)' }, '100%': { opacity: '1', transform: 'scale(1)' } },
+        float:    { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-14px)' } },
+        gradientShift: { '0%,100%': { backgroundPosition: '0% 50%' }, '50%': { backgroundPosition: '100% 50%' } },
+        marquee:  { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
+        pulseRing:{ '0%': { transform: 'scale(0.9)', opacity: '0.7' }, '70%,100%': { transform: 'scale(1.7)', opacity: '0' } },
+        shimmer:  { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } },
+      },
+      transitionTimingFunction: {
+        'spring': 'cubic-bezier(0.16,1,0.3,1)',
+      },
+    },
+  },
+  plugins: [],
+};

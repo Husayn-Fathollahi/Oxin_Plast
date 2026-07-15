@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "title": "Contact Us",
+    "description": "Get in touch with our team — we respond within 24 hours"
+  },
+  "title": "Contact Us",
+  "subtitle": "Have a question, suggestion, or partnership inquiry? We'd love to hear from you.",
+  "info": {
+    "title": "Contact Information",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "workingHours": "Working Hours",
+    "workingHoursValue": "Sat – Wed, 8 AM to 5 PM"
+  },
+  "promise": {
+    "title": "Quick Response Guarantee",
+    "body": "Our team is committed to responding to your message within 24 business hours. For urgent matters, please call us directly."
+  },
+  "form": {
+    "sectionTitle": "Send a Message",
+    "sectionSubtitle": "Fill out the form below and we'll get back to you as soon as possible.",
+    "name": "Full Name",
+    "namePlaceholder": "e.g. John Smith",
+    "email": "Email Address (Optional)",
+    "emailPlaceholder": "example@email.com",
+    "phone": "Phone Number",
+    "phonePlaceholder": "+1 (555) 000-0000",
+    "subject": "Subject",
+    "subjectPlaceholder": "What is this about?",
+    "message": "Message",
+    "messagePlaceholder": "Write your message here...",
+    "submit": "Send Message",
+    "sending": "Sending...",
+    "successTitle": "Message Sent!",
+    "successMessage": "Thank you for reaching out. We'll be in touch shortly.",
+    "sendAnother": "Send Another Message",
+    "errorMessage": "Failed to send message. Please try again."
+  },
+  "validation": {
+    "nameRequired": "Name is required",
+    "emailInvalid": "Please enter a valid email address",
+    "phoneRequired": "Phone number is required",
+    "messageRequired": "Message is required"
+  }
+}

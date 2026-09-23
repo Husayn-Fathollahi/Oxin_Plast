@@ -56,3 +56,5 @@ logs/
 *-backup
 *.tar.gz
 frontend/public/uploads/
+
+desktop.ini

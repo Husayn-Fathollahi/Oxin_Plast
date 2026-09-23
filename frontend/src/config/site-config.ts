@@ -25,9 +25,12 @@ export const siteConfig = {
   },
 
   social: {
-    instagram: 'https://instagram.com/plasticcompany',
-    linkedin: 'https://linkedin.com/company/plasticcompany',
-    whatsapp: 'https://wa.me/+98 992 888 3595',
+    instagram: "https://instagram.com/plasticcompany",
+    linkedin: "https://linkedin.com/company/plasticcompany",
+    whatsapp: "https://wa.me/+989928883595",
+    telegram: "https://t.me/oxinplast",
+    rubika: "https://rubika.ir/oxinplast",
+    bale: "https://ble.ir/oxinplast",
   },
 
   /** Live chat (Crisp) placeholder — set the website ID from the Crisp dashboard. */

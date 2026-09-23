@@ -5,7 +5,8 @@
   },
   "listing": {
     "title": "Blog",
-    "readMore": "Read more"
+    "readMore": "Read more",
+    "empty": "No articles published yet."
   },
   "detail": {
     "publishedOn": "Published on",

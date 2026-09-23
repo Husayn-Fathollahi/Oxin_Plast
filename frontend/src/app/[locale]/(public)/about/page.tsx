@@ -14,6 +14,8 @@ interface AboutPageProps {
 
 export async function generateMetadata({ params }: AboutPageProps): Promise<Metadata> {
   const { locale } = await params;
+  const isEn = locale === 'en';
+  const isAr = locale === 'ar';
   const t = await getTranslations({ locale, namespace: 'common' });
   const title = t('about.meta.title');
   const description = t('about.meta.description');
@@ -25,7 +27,7 @@ export async function generateMetadata({ params }: AboutPageProps): Promise<Meta
       ...seoConfig.defaultOpenGraph,
       title,
       description,
-      locale: locale === 'en' ? 'en_US' : 'fa_IR',
+      locale: isAr ? 'ar_SA' : isEn ? 'en_US' : 'fa_IR',
     },
     twitter: { ...seoConfig.twitter, title, description },
   };
@@ -34,42 +36,69 @@ export async function generateMetadata({ params }: AboutPageProps): Promise<Meta
 export default async function AboutPage({ params }: AboutPageProps) {
   const { locale } = await params;
   const isEn = locale === 'en';
+  const isAr = locale === 'ar';
 
   const stats = [
-    { n: isEn ? '35+'   : '۳۵+',   l: isEn ? 'Years of Craft'   : 'سال تجربه' },
-    { n: isEn ? '500+'  : '۵۰۰+',  l: isEn ? 'Product Lines'    : 'خط محصول' },
-    { n: isEn ? '1200+' : '۱۲۰۰+', l: isEn ? 'Happy Clients'    : 'مشتری راضی' },
-    { n: isEn ? '4'     : '۴',     l: isEn ? 'Export Countries' : 'کشور صادراتی' },
+    { n: '35+',   l: isAr ? 'سنوات الخبرة'    : isEn ? 'Years of Craft'   : 'سال تجربه' },
+    { n: '500+',  l: isAr ? 'خط إنتاج'         : isEn ? 'Product Lines'    : 'خط محصول' },
+    { n: '1200+', l: isAr ? 'عميل راضٍ'        : isEn ? 'Happy Clients'    : 'مشتری راضی' },
+    { n: '4',     l: isAr ? 'دول التصدير'      : isEn ? 'Export Countries' : 'کشور صادراتی' },
   ];
 
   const pillars = [
-    { icon: Target, tint: 'bg-brand-gradient', t: isEn ? 'Our Mission' : 'مأموریت ما',
-      d: isEn ? 'To manufacture industrial containers that set the benchmark for durability, safety and value across the region.'
+    { icon: Target, tint: 'bg-brand-gradient',
+      t: isAr ? 'مهمتنا'    : isEn ? 'Our Mission' : 'مأموریت ما',
+      d: isAr ? 'تصنيع حاويات صناعية تضع معيار المتانة والسلامة والقيمة في المنطقة.'
+              : isEn ? 'To manufacture industrial containers that set the benchmark for durability, safety and value across the region.'
               : 'تولید ظروف صنعتی که معیار ماندگاری، ایمنی و ارزش را در منطقه تعیین می‌کنند.' },
-    { icon: Eye, tint: 'bg-coral-gradient', t: isEn ? 'Our Vision' : 'چشم‌انداز ما',
-      d: isEn ? 'To become the most trusted name in plastic manufacturing, recognized for innovation and uncompromising quality.'
+    { icon: Eye, tint: 'bg-coral-gradient',
+      t: isAr ? 'رؤيتنا'   : isEn ? 'Our Vision' : 'چشم‌انداز ما',
+      d: isAr ? 'أن نصبح الاسم الأكثر ثقة في تصنيع البلاستيك، معروفين بالابتكار والجودة التي لا تُساوَم.'
+              : isEn ? 'To become the most trusted name in plastic manufacturing, recognized for innovation and uncompromising quality.'
               : 'تبدیل‌شدن به معتبرترین نام در صنعت پلاستیک، شناخته‌شده برای نوآوری و کیفیت بی‌چون‌وچرا.' },
-    { icon: Heart, tint: 'bg-brand-gradient', t: isEn ? 'Our Values' : 'ارزش‌های ما',
-      d: isEn ? 'Integrity, precision and sustainability guide every product we make and every relationship we build.'
+    { icon: Heart, tint: 'bg-brand-gradient',
+      t: isAr ? 'قيمنا'    : isEn ? 'Our Values' : 'ارزش‌های ما',
+      d: isAr ? 'النزاهة والدقة والاستدامة ترشد كل منتج نصنعه وكل علاقة نبنيها.'
+              : isEn ? 'Integrity, precision and sustainability guide every product we make and every relationship we build.'
               : 'صداقت، دقت و پایداری راهنمای هر محصول ما و هر رابطه‌ای است که می‌سازیم.' },
   ];
 
   const values = [
-    { icon: ShieldCheck,  t: isEn ? 'Certified Quality'   : 'کیفیت گواهی‌شده', d: isEn ? 'ISO 9001, ISIRI and UN approvals.' : 'تأیید ISO 9001، ISIRI و UN.' },
-    { icon: Recycle,      t: isEn ? 'Sustainability'      : 'پایداری',         d: isEn ? '100% recyclable HDPE materials.' : 'مواد HDPE کاملاً بازیافتی.' },
-    { icon: FlaskConical, t: isEn ? 'In-House R&D'        : 'تحقیق و توسعه',   d: isEn ? 'Dedicated lab and testing facility.' : 'آزمایشگاه و واحد تست اختصاصی.' },
-    { icon: Truck,        t: isEn ? 'Nationwide Reach'    : 'پوشش سراسری',     d: isEn ? 'Delivery to all 31 provinces.' : 'ارسال به تمام ۳۱ استان.' },
+    { icon: ShieldCheck,
+      t: isAr ? 'جودة معتمدة'     : isEn ? 'Certified Quality'   : 'کیفیت گواهی‌شده',
+      d: isAr ? 'معتمد بـ ISO 9001 وISIRI والأمم المتحدة.'   : isEn ? 'ISO 9001, ISIRI and UN approvals.'  : 'تأیید ISO 9001، ISIRI و UN.' },
+    { icon: Recycle,
+      t: isAr ? 'الاستدامة'        : isEn ? 'Sustainability'      : 'پایداری',
+      d: isAr ? 'مواد HDPE قابلة للتدوير 100٪.'               : isEn ? '100% recyclable HDPE materials.'   : 'مواد HDPE کاملاً بازیافتی.' },
+    { icon: FlaskConical,
+      t: isAr ? 'بحث وتطوير داخلي': isEn ? 'In-House R&D'        : 'تحقیق و توسعه',
+      d: isAr ? 'مختبر مخصص ومرفق اختبار.'                    : isEn ? 'Dedicated lab and testing facility.' : 'آزمایشگاه و واحد تست اختصاصی.' },
+    { icon: Truck,
+      t: isAr ? 'تغطية وطنية'     : isEn ? 'Nationwide Reach'    : 'پوشش سراسری',
+      d: isAr ? 'التوصيل إلى جميع المحافظات الـ 31.'          : isEn ? 'Delivery to all 31 provinces.'      : 'ارسال به تمام ۳۱ استان.' },
   ];
 
   const timeline = [
-    { y: isEn ? '1990' : '۱۳۶۹', t: isEn ? 'Founded' : 'تأسیس',
-      d: isEn ? 'Started as a small workshop producing household containers.' : 'آغاز به‌عنوان کارگاهی کوچک برای تولید ظروف خانگی.' },
-    { y: isEn ? '2002' : '۱۳۸۱', t: isEn ? 'Industrial Scale' : 'مقیاس صنعتی',
-      d: isEn ? 'Expanded to a full industrial plant with automated lines.' : 'توسعه به کارخانه صنعتی کامل با خطوط اتوماتیک.' },
-    { y: isEn ? '2014' : '۱۳۹۳', t: isEn ? 'Certifications' : 'گواهینامه‌ها',
-      d: isEn ? 'Achieved ISO 9001 and UN approval for hazardous goods.' : 'دریافت ISO 9001 و تأییدیه UN برای کالاهای خطرناک.' },
-    { y: isEn ? '2021' : '۱۴۰۰', t: isEn ? 'Going Global' : 'حضور جهانی',
-      d: isEn ? 'Began exporting to neighboring CIS countries.' : 'آغاز صادرات به کشورهای همسایه CIS.' },
+    { y: '1990',
+      t: isAr ? 'التأسيس'          : isEn ? 'Founded'          : 'تأسیس',
+      d: isAr ? 'بدأنا كورشة صغيرة لإنتاج الحاويات المنزلية.'
+              : isEn ? 'Started as a small workshop producing household containers.'
+              : 'آغاز به‌عنوان کارگاهی کوچک برای تولید ظروف خانگی.' },
+    { y: '2002',
+      t: isAr ? 'التوسع الصناعي'   : isEn ? 'Industrial Scale'  : 'مقیاس صنعتی',
+      d: isAr ? 'توسعنا إلى مصنع صناعي كامل بخطوط آلية.'
+              : isEn ? 'Expanded to a full industrial plant with automated lines.'
+              : 'توسعه به کارخانه صنعتی کامل با خطوط اتوماتیک.' },
+    { y: '2014',
+      t: isAr ? 'الشهادات'         : isEn ? 'Certifications'    : 'گواهینامه‌ها',
+      d: isAr ? 'حصلنا على ISO 9001 وموافقة الأمم المتحدة للبضائع الخطرة.'
+              : isEn ? 'Achieved ISO 9001 and UN approval for hazardous goods.'
+              : 'دریافت ISO 9001 و تأییدیه UN برای کالاهای خطرناک.' },
+    { y: '2021',
+      t: isAr ? 'الانطلاق العالمي' : isEn ? 'Going Global'      : 'حضور جهانی',
+      d: isAr ? 'بدأنا التصدير إلى دول رابطة الدول المستقلة المجاورة.'
+              : isEn ? 'Began exporting to neighboring CIS countries.'
+              : 'آغاز صادرات به کشورهای همسایه CIS.' },
   ];
 
   return (
@@ -85,23 +114,28 @@ export default async function AboutPage({ params }: AboutPageProps) {
             <div className="lg:col-span-6">
               <div className="chip animate-fade-up animate-fill-both">
                 <Sparkles className="h-3.5 w-3.5" />
-                {isEn ? 'Since 1990' : 'از سال ۱۳۶۹'}
+                {isAr ? 'منذ عام 1990' : isEn ? 'Since 1990' : 'از سال ۱۳۶۹'}
               </div>
               <h1 className="display text-display mt-6 animate-fade-up animate-fill-both animate-delay-100">
-                {isEn ? <>Three decades of<br /><span className="text-gradient">industrial mastery</span></>
+                {isAr ? <>ثلاثة عقود من<br /><span className="text-gradient">التميز الصناعي</span></>
+                      : isEn ? <>Three decades of<br /><span className="text-gradient">industrial mastery</span></>
                       : <>سه دهه<br /><span className="text-gradient">تسلط صنعتی</span></>}
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft animate-fade-up animate-fill-both animate-delay-200">
-                {isEn
+                {isAr
+                  ? 'من ورشة متواضعة إلى رائد إقليمي في تصنيع البلاستيك؛ قصتنا مبنية على الحرفية والثقة والهوس بالجودة.'
+                  : isEn
                   ? 'From a modest workshop to a regional leader in plastic manufacturing, our story is built on craftsmanship, trust and an obsession with quality.'
                   : 'از یک کارگاه کوچک تا یکی از پیشروان منطقه‌ای صنعت پلاستیک؛ داستان ما بر پایه مهارت، اعتماد  بر کیفیت بنا شده است.'}
               </p>
               <div className="mt-9 flex flex-wrap gap-4 animate-fade-up animate-fill-both animate-delay-300">
                 <Link href="/products" className="btn-primary">
-                  {isEn ? 'Our Products' : 'محصولات ما'}
+                  {isAr ? 'منتجاتنا' : isEn ? 'Our Products' : 'محصولات ما'}
                   <ArrowRight className="h-4 w-4 flip-x" />
                 </Link>
-                <Link href="/contact" className="btn-ghost">{isEn ? 'Get in Touch' : 'تماس با ما'}</Link>
+                <Link href="/contact" className="btn-ghost">
+                  {isAr ? 'تواصل معنا' : isEn ? 'Get in Touch' : 'تماس با ما'}
+                </Link>
               </div>
             </div>
 
@@ -111,7 +145,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="/images/logo/006.png"
-                    alt={isEn ? 'Our factory' : 'کارخانه ما'}
+                    alt={isAr ? 'مصنعنا' : isEn ? 'Our factory' : 'کارخانه ما'}
                     className="h-[480px] w-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-950/30 to-transparent" />
@@ -119,8 +153,10 @@ export default async function AboutPage({ params }: AboutPageProps) {
                 <div className="absolute -bottom-6 -start-6 card p-5 flex items-center gap-3 animate-float">
                   <span className="icon-tile h-11 w-11 bg-brand-gradient"><Factory className="h-5 w-5" /></span>
                   <div className="pe-2">
-                    <div className="display text-xl text-ink">{isEn ? '12,000 m²' : '۱۲٬۰۰۰ متر'}</div>
-                    <div className="text-[11px] text-ink-muted">{isEn ? 'Production area' : 'سطح تولید'}</div>
+                    <div className="display text-xl text-ink">12,000 m²</div>
+                    <div className="text-[11px] text-ink-muted">
+                      {isAr ? 'مساحة الإنتاج' : isEn ? 'Production area' : 'سطح تولید'}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -162,26 +198,31 @@ export default async function AboutPage({ params }: AboutPageProps) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/uploads/products/1783586901086-03bd84b70c654f48aaf6f76adcf97087.jpg"
-              alt={isEn ? 'Production line' : 'خط تولید'}
+              alt={isAr ? 'خط الإنتاج' : isEn ? 'Production line' : 'خط تولید'}
               className="h-[440px] w-full object-cover"
             />
           </div>
           <div>
-            <span className="eyebrow"><span className="dash" /> {isEn ? 'Our Story' : 'داستان ما'}</span>
+            <span className="eyebrow">
+              <span className="dash" /> {isAr ? 'قصتنا' : isEn ? 'Our Story' : 'داستان ما'}
+            </span>
             <h2 className="display text-display-sm mt-4">
-              {isEn ? <>Built on <span className="text-gradient">trust</span>, refined by time</>
+              {isAr ? <>مبنية على <span className="text-gradient">الثقة</span>، صقلها الزمن</>
+                    : isEn ? <>Built on <span className="text-gradient">trust</span>, refined by time</>
                     : <>ساخته‌شده بر <span className="text-gradient">اعتماد</span>، صیقل‌خورده با زمان</>}
             </h2>
             <p className="mt-5 text-ink-soft leading-relaxed">
-              {isEn
-                ? 'What began in 1990 as a family workshop has grown into one of the region\u2019s most respected plastic manufacturers. Every container that leaves our plant carries three decades of accumulated know-how.'
+              {isAr
+                ? 'ما بدأ عام 1990 كورشة عائلية أصبح اليوم أحد أكثر الشركات المصنّعة للبلاستيك ثقةً في المنطقة. كل حاوية تغادر مصنعنا تحمل ثلاثة عقود من الخبرة المتراكمة.'
+                : isEn
+                ? 'What began in 1990 as a family workshop has grown into one of the region’s most respected plastic manufacturers. Every container that leaves our plant carries three decades of accumulated know-how.'
                 : 'آنچه در سال ۱۳۶۹ به‌عنوان یک کارگاه خانوادگی آغاز شد، امروز به یکی از معتبرترین تولیدکنندگان پلاستیک منطقه تبدیل شده است. هر ظرفی که کارخانه ما را ترک می‌کند، حامل سه دهه دانش انباشته است.'}
             </p>
             <ul className="mt-6 space-y-3">
               {[
-                isEn ? 'Vertically integrated production' : 'تولید یکپارچه و کامل',
-                isEn ? 'Food-grade and chemical-safe materials' : 'مواد ایمن برای مواد غذایی و شیمیایی',
-                isEn ? 'Dedicated quality-control at every stage' : 'کنترل کیفیت اختصاصی در هر مرحله',
+                isAr ? 'إنتاج متكامل رأسياً'                        : isEn ? 'Vertically integrated production'        : 'تولید یکپارچه و کامل',
+                isAr ? 'مواد آمنة للاستخدام الغذائي والكيميائي'    : isEn ? 'Food-grade and chemical-safe materials'   : 'مواد ایمن برای مواد غذایی و شیمیایی',
+                isAr ? 'مراقبة جودة مخصصة في كل مرحلة'             : isEn ? 'Dedicated quality-control at every stage' : 'کنترل کیفیت اختصاصی در هر مرحله',
               ].map((line) => (
                 <li key={line} className="flex items-center gap-3 text-sm font-semibold text-ink">
                   <CheckCircle className="h-5 w-5 text-brand-500 shrink-0" /> {line}
@@ -195,8 +236,12 @@ export default async function AboutPage({ params }: AboutPageProps) {
       {/* Timeline */}
       <section className="container mx-auto py-16">
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="eyebrow justify-center"><span className="dash" /> {isEn ? 'Our Journey' : 'مسیر ما'} <span className="dash" /></span>
-          <h2 className="display text-display-sm mt-4">{isEn ? 'Milestones that shaped us' : 'نقاط عطفی که ما را ساختند'}</h2>
+          <span className="eyebrow justify-center">
+            <span className="dash" /> {isAr ? 'مسيرتنا' : isEn ? 'Our Journey' : 'مسیر ما'} <span className="dash" />
+          </span>
+          <h2 className="display text-display-sm mt-4">
+            {isAr ? 'المراحل التي شكّلتنا' : isEn ? 'Milestones that shaped us' : 'نقاط عطفی که ما را ساختند'}
+          </h2>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {timeline.map(({ y, t: title, d }, i) => (
@@ -220,9 +265,12 @@ export default async function AboutPage({ params }: AboutPageProps) {
             <div className="relative">
               <div className="text-center max-w-2xl mx-auto mb-12">
                 <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-brand-300">
-                  <span className="inline-block h-px w-10 bg-brand-400" /> {isEn ? 'What Drives Us' : 'آنچه ما را پیش می‌برد'}
+                  <span className="inline-block h-px w-10 bg-brand-400" />
+                  {isAr ? 'ما يحرّكنا' : isEn ? 'What Drives Us' : 'آنچه ما را پیش می‌برد'}
                 </span>
-                <h2 className="display text-display-sm mt-4 text-white">{isEn ? 'Principles we never compromise' : 'اصولی که هرگز نادیده نمی‌گیریم'}</h2>
+                <h2 className="display text-display-sm mt-4 text-white">
+                  {isAr ? 'مبادئ لا نتنازل عنها' : isEn ? 'Principles we never compromise' : 'اصولی که هرگز نادیده نمی‌گیریم'}
+                </h2>
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {values.map(({ icon: Icon, t: title, d }) => (
@@ -247,13 +295,17 @@ export default async function AboutPage({ params }: AboutPageProps) {
           </div>
           <div className="relative">
             <h2 className="display text-display-sm text-white max-w-2xl mx-auto">
-              {isEn ? 'Want to work with us?' : 'مایل به همکاری با ما هستید؟'}
+              {isAr ? 'تريد العمل معنا؟' : isEn ? 'Want to work with us?' : 'مایل به همکاری با ما هستید؟'}
             </h2>
             <p className="mt-4 text-white/85 max-w-xl mx-auto leading-relaxed">
-              {isEn ? 'Let\u2019s build something durable together. Our team is ready to help.' : 'بیایید با هم چیزی ماندگار بسازیم. تیم ما آماده کمک است.'}
+              {isAr
+                ? 'دعنا نبني شيئاً دائماً معاً. فريقنا مستعد للمساعدة.'
+                : isEn
+                ? 'Let’s build something durable together. Our team is ready to help.'
+                : 'بیایید با هم چیزی ماندگار بسازیم. تیم ما آماده کمک است.'}
             </p>
             <Link href="/contact" className="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-bold text-coral-600 shadow-lift transition-transform hover:-translate-y-1">
-              {isEn ? 'Contact Our Team' : 'تماس با تیم ما'}
+              {isAr ? 'تواصل مع فريقنا' : isEn ? 'Contact Our Team' : 'تماس با تیم ما'}
               <ArrowRight className="h-4 w-4 flip-x" />
             </Link>
           </div>

@@ -6,7 +6,7 @@ import { routing } from './lib/i18n/routing';
 const intlMiddleware = createIntlMiddleware(routing);
 
 // Protects /fa/admin and /en/admin (and all sub-paths, except login)
-const ADMIN_PATTERN = /^\/(fa|en)\/admin(?!\/login)(\/|$)/;
+const ADMIN_PATTERN = /^\/(fa|en|ar)\/admin(?!\/login)(\/|$)/;
 // Protects /api/messages and all sub-paths (all methods)
 const API_MESSAGES_PATTERN = /^\/api\/messages(\/|$)/;
 // Protects write operations on admin-only mutation APIs

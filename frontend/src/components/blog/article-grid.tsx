@@ -2,16 +2,17 @@ import { ArticleCard, type ArticleCardProps } from './article-card';
 
 interface ArticleGridProps {
   articles: ArticleCardProps[];
+  emptyLabel?: string;
 }
 
 /**
  * ArticleGrid — responsive grid of ArticleCard components.
  */
-export function ArticleGrid({ articles }: ArticleGridProps) {
+export function ArticleGrid({ articles, emptyLabel = 'No articles published yet.' }: ArticleGridProps) {
   if (articles.length === 0) {
     return (
       <div className="py-16 text-center text-gray-400">
-        No articles published yet.
+        {emptyLabel}
       </div>
     );
   }

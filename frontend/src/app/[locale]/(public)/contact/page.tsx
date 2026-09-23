@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: ContactPageProps): Promise<Me
       ...seoConfig.defaultOpenGraph,
       title,
       description,
-      locale: locale === 'en' ? 'en_US' : 'fa_IR',
+      locale: locale === 'ar' ? 'ar_SA' : locale === 'en' ? 'en_US' : 'fa_IR',
     },
     twitter: { ...seoConfig.twitter, title, description },
   };
@@ -32,6 +32,7 @@ export async function generateMetadata({ params }: ContactPageProps): Promise<Me
 export default async function ContactPage({ params }: ContactPageProps) {
   const { locale } = await params;
   const isEn = locale === 'en';
+  const isAr = locale === 'ar';
   const t = await getTranslations({ locale, namespace: 'contact' });
 
   const infoItems = [
@@ -52,7 +53,7 @@ export default async function ContactPage({ params }: ContactPageProps) {
         <div className="container mx-auto relative py-20 lg:py-24 text-center">
           <div className="chip mx-auto animate-fade-up animate-fill-both">
             <MessageCircle className="h-3.5 w-3.5" />
-            {isEn ? "Let's Talk" : 'گفت‌وگو با ما'}
+            {isAr ? 'لنتحدث' : isEn ? "Let's Talk" : 'گفت‌وگو با ما'}
           </div>
           <h1 className="display text-display mt-6 animate-fade-up animate-fill-both animate-delay-100">
             {t('title')}

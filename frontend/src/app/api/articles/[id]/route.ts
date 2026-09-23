@@ -6,6 +6,7 @@ import { prisma } from '@/lib/prisma';
 const PatchArticleSchema = z.object({
   title: z.string().trim().min(1).max(255).optional(),
   titleEn: z.string().trim().max(255).optional().or(z.literal('')),
+  titleAr: z.string().trim().max(255).optional().or(z.literal('')),
   slug: z
     .string()
     .trim()
@@ -15,8 +16,10 @@ const PatchArticleSchema = z.object({
     .optional(),
   excerpt: z.string().trim().min(1).max(500).optional(),
   excerptEn: z.string().trim().max(500).optional().or(z.literal('')),
+  excerptAr: z.string().trim().max(500).optional().or(z.literal('')),
   content: z.string().trim().min(1).optional(),
   contentEn: z.string().trim().optional().or(z.literal('')),
+  contentAr: z.string().trim().optional().or(z.literal('')),
   image: z.string().trim().optional().or(z.literal('')),
   published: z.boolean().optional(),
 });
@@ -66,12 +69,15 @@ export async function PATCH(
     return NextResponse.json({ success: false, errors }, { status: 400 });
   }
 
-  const { image, titleEn, excerptEn, contentEn, ...rest } = parsed.data;
+  const { image, titleEn, titleAr, excerptEn, excerptAr, contentEn, contentAr, ...rest } = parsed.data;
   const data: Record<string, unknown> = { ...rest };
   if (image !== undefined) data.image = image || null;
   if (titleEn !== undefined) data.titleEn = titleEn || null;
+  if (titleAr !== undefined) data.titleAr = titleAr || null;
   if (excerptEn !== undefined) data.excerptEn = excerptEn || null;
+  if (excerptAr !== undefined) data.excerptAr = excerptAr || null;
   if (contentEn !== undefined) data.contentEn = contentEn || null;
+  if (contentAr !== undefined) data.contentAr = contentAr || null;
 
   try {
     const article = await prisma.article.update({ where: { id }, data });

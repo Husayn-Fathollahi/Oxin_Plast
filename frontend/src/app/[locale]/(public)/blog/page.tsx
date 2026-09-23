@@ -39,6 +39,7 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
 export default async function BlogPage({ params }: BlogPageProps) {
   const { locale } = await params;
   const isEn = locale === 'en';
+  const isAr = locale === 'ar';
   const t = await getTranslations({ locale, namespace: 'blog' });
 
   const articles = await prisma.article.findMany({
@@ -47,18 +48,24 @@ export default async function BlogPage({ params }: BlogPageProps) {
     select: {
       title: true,
       titleEn: true,
+      titleAr: true,
       slug: true,
       excerpt: true,
       excerptEn: true,
+      excerptAr: true,
       image: true,
       createdAt: true,
     },
   });
 
-  const cards = articles.map((a) => ({
-    title: isEn ? (a.titleEn || a.title) : a.title,
+  const cards = articles.map((a: any) => ({
+    title: isAr
+      ? (a.titleAr?.trim() || a.title || a.titleEn || '')
+      : isEn ? (a.titleEn?.trim() || a.title) : a.title,
     slug: a.slug,
-    excerpt: isEn ? (a.excerptEn || a.excerpt) : a.excerpt,
+    excerpt: isAr
+      ? (a.excerptAr?.trim() || a.excerpt || a.excerptEn || '')
+      : isEn ? (a.excerptEn?.trim() || a.excerpt) : a.excerpt,
     coverImageUrl: a.image ?? undefined,
     publishedAt: a.createdAt.toISOString(),
     locale,
@@ -68,7 +75,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
   return (
     <div className="container mx-auto px-4 py-12">
       <h1 className="mb-8 text-3xl font-bold">{t('listing.title')}</h1>
-      <ArticleGrid articles={cards} />
+      <ArticleGrid articles={cards} emptyLabel={t('listing.empty')} />
     </div>
   );
 }

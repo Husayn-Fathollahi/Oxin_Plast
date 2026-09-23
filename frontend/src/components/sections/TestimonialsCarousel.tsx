@@ -5,17 +5,22 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface TestimonialsCarouselProps {
   isEn: boolean;
+  isAr?: boolean;
 }
 
 interface Testimonial {
   quoteFa: React.ReactNode;
   quoteEn: React.ReactNode;
+  quoteAr: React.ReactNode;
   initialsFa: string;
   initialsEn: string;
+  initialsAr: string;
   nameFa: string;
   nameEn: string;
+  nameAr: string;
   roleFa: string;
   roleEn: string;
+  roleAr: string;
 }
 
 const testimonials: Testimonial[] = [
@@ -26,12 +31,18 @@ const testimonials: Testimonial[] = [
     quoteEn: (
       <>&ldquo;After two years across five provinces, <span className="text-gradient">not a single failure</span>. The engineering speaks for itself.&rdquo;</>
     ),
+    quoteAr: (
+      <>«بعد عامين في خمس مناطق، <span className="text-gradient">لم نشهد أي عطل</span>. الهندسة تتحدث عن نفسها.»</>
+    ),
     initialsFa: 'ا.ک',
     initialsEn: 'AK',
+    initialsAr: 'أ.ك',
     nameFa: 'احمد کریمی',
     nameEn: 'Ahmad Karimi',
+    nameAr: 'أحمد كريمي',
     roleFa: 'مدیر عملیات، پتروتک',
     roleEn: 'Operations Director, PetroTech',
+    roleAr: 'مدير العمليات، بتروتك',
   },
   {
     quoteFa: (
@@ -40,12 +51,18 @@ const testimonials: Testimonial[] = [
     quoteEn: (
       <>&ldquo;The quality is identical on every order and delivery is always on time. That&rsquo;s why we&rsquo;ve sourced exclusively from them for <span className="text-gradient">three years</span>.&rdquo;</>
     ),
+    quoteAr: (
+      <>«الجودة متطابقة في كل طلب والتسليم دائماً في موعده. لهذا نتعامل معهم حصرياً منذ <span className="text-gradient">ثلاث سنوات</span>.»</>
+    ),
     initialsFa: 'م.ر',
     initialsEn: 'MR',
+    initialsAr: 'م.ر',
     nameFa: 'مریم رضایی',
     nameEn: 'Maryam Rezaei',
+    nameAr: 'مريم رضائي',
     roleFa: 'مدیر خرید، صنایع غذایی گلستان',
     roleEn: 'Purchasing Manager, Golestan Foods',
+    roleAr: 'مدير المشتريات، جولستان فودز',
   },
   {
     quoteFa: (
@@ -54,12 +71,18 @@ const testimonials: Testimonial[] = [
     quoteEn: (
       <>&ldquo;The barrels keep their shape even under heavy loads and high heat. Working with these products is genuinely <span className="text-gradient">hassle-free</span>.&rdquo;</>
     ),
+    quoteAr: (
+      <>«البراميل تحتفظ بشكلها حتى تحت الأحمال الثقيلة ودرجات الحرارة العالية. العمل بهذه المنتجات <span className="text-gradient">خالٍ من المتاعب</span> حقاً.»</>
+    ),
     initialsFa: 'ر.م',
     initialsEn: 'RM',
+    initialsAr: 'ر.م',
     nameFa: 'رضا محمدی',
     nameEn: 'Reza Mohammadi',
+    nameAr: 'رضا محمدي',
     roleFa: 'سرپرست لجستیک، آریا شیمی',
     roleEn: 'Logistics Supervisor, Aria Chemical',
+    roleAr: 'مشرف اللوجستيات، آريا كيميكال',
   },
   {
     quoteFa: (
@@ -68,12 +91,18 @@ const testimonials: Testimonial[] = [
     quoteEn: (
       <>&ldquo;Fast support and <span className="text-gradient">top-grade</span> raw materials — exactly what a manufacturer needs for peace of mind.&rdquo;</>
     ),
+    quoteAr: (
+      <>«دعم سريع ومواد خام <span className="text-gradient">من الدرجة الأولى</span> — تماماً ما يحتاجه المصنّع لراحة البال.»</>
+    ),
     initialsFa: 'س.ا',
     initialsEn: 'SA',
+    initialsAr: 'س.أ',
     nameFa: 'سارا احمدی',
     nameEn: 'Sara Ahmadi',
+    nameAr: 'سارة أحمدي',
     roleFa: 'مدیر کیفیت، پردیس اگرو',
     roleEn: 'Quality Manager, Pardis Agro',
+    roleAr: 'مدير الجودة، برديس أجرو',
   },
 ];
 
@@ -84,7 +113,7 @@ const ROTATE_MS = 4500;
  * Keeps the existing centered "Client Voices" styling but cycles through
  * multiple quotes with a smooth fade, plus prev/next controls and dots.
  */
-export function TestimonialsCarousel({ isEn }: TestimonialsCarouselProps) {
+export function TestimonialsCarousel({ isEn, isAr = false }: TestimonialsCarouselProps) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const count = testimonials.length;
@@ -115,7 +144,7 @@ export function TestimonialsCarousel({ isEn }: TestimonialsCarouselProps) {
       onMouseLeave={() => setPaused(false)}
     >
       <span className="eyebrow justify-center">
-        <span className="dash" /> {isEn ? 'Client Voices' : 'صدای مشتریان'} <span className="dash" />
+        <span className="dash" /> {isAr ? 'أصوات عملائنا' : isEn ? 'Client Voices' : 'صدای مشتریان'} <span className="dash" />
       </span>
 
       {/* Slide viewport — fixed-ish height avoids jumpiness between quotes */}
@@ -125,15 +154,15 @@ export function TestimonialsCarousel({ isEn }: TestimonialsCarouselProps) {
       >
         <div key={active} className="animate-fade-up animate-fill-both">
           <blockquote className="display text-display-xs leading-snug text-ink">
-            {isEn ? current.quoteEn : current.quoteFa}
+            {isAr ? current.quoteAr : isEn ? current.quoteEn : current.quoteFa}
           </blockquote>
           <div className="mt-8 flex items-center justify-center gap-3">
             <span className="grid h-11 w-11 place-items-center rounded-full bg-brand-gradient text-white font-bold">
-              {isEn ? current.initialsEn : current.initialsFa}
+              {isAr ? current.initialsAr : isEn ? current.initialsEn : current.initialsFa}
             </span>
             <div className="text-start">
-              <div className="font-bold text-ink">{isEn ? current.nameEn : current.nameFa}</div>
-              <div className="text-sm text-ink-muted">{isEn ? current.roleEn : current.roleFa}</div>
+              <div className="font-bold text-ink">{isAr ? current.nameAr : isEn ? current.nameEn : current.nameFa}</div>
+              <div className="text-sm text-ink-muted">{isAr ? current.roleAr : isEn ? current.roleEn : current.roleFa}</div>
             </div>
           </div>
         </div>
@@ -144,7 +173,7 @@ export function TestimonialsCarousel({ isEn }: TestimonialsCarouselProps) {
         <button
           type="button"
           onClick={() => go(-1)}
-          aria-label={isEn ? 'Previous testimonial' : 'نظر قبلی'}
+          aria-label={isAr ? 'الشهادة السابقة' : isEn ? 'Previous testimonial' : 'نظر قبلی'}
           className="grid h-10 w-10 place-items-center rounded-full border border-sand-200 bg-white text-ink-muted transition-colors hover:border-brand-300 hover:text-brand-700"
         >
           <ChevronLeft className="h-5 w-5 flip-x" />
@@ -157,7 +186,7 @@ export function TestimonialsCarousel({ isEn }: TestimonialsCarouselProps) {
               key={i}
               type="button"
               onClick={() => setActive(i)}
-              aria-label={isEn ? `Go to testimonial ${i + 1}` : `رفتن به نظر ${i + 1}`}
+              aria-label={isAr ? `الانتقال إلى الشهادة ${i + 1}` : isEn ? `Go to testimonial ${i + 1}` : `رفتن به نظر ${i + 1}`}
               aria-current={i === active}
               className={
                 i === active
@@ -171,7 +200,7 @@ export function TestimonialsCarousel({ isEn }: TestimonialsCarouselProps) {
         <button
           type="button"
           onClick={() => go(1)}
-          aria-label={isEn ? 'Next testimonial' : 'نظر بعدی'}
+          aria-label={isAr ? 'الشهادة التالية' : isEn ? 'Next testimonial' : 'نظر بعدی'}
           className="grid h-10 w-10 place-items-center rounded-full border border-sand-200 bg-white text-ink-muted transition-colors hover:border-brand-300 hover:text-brand-700"
         >
           <ChevronRight className="h-5 w-5 flip-x" />

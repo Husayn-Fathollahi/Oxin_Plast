@@ -18,4 +18,5 @@ export const localeMetadata: Record<Locale, {
 }> = {
   fa: { code: 'fa', label: 'فارسی', dir: 'rtl', dateLocale: 'fa-IR' },
   en: { code: 'en', label: 'English', dir: 'ltr', dateLocale: 'en-US' },
+  ar: { code: 'ar', label: 'العربية', dir: 'rtl', dateLocale: 'ar-SA' },
 };

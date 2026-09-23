@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "title": "اتصل بنا",
+    "description": "تواصل مع فريقنا — رد خلال أقل من 24 ساعة"
+  },
+  "title": "اتصل بنا",
+  "subtitle": "هل لديك سؤال أو اقتراح أو طلب تعاون؟ نحن هنا.",
+  "info": {
+    "title": "معلومات الاتصال",
+    "phone": "رقم الهاتف",
+    "email": "البريد الإلكتروني",
+    "address": "العنوان",
+    "workingHours": "ساعات العمل",
+    "workingHoursValue": "السبت إلى الخميس، 8 صباحاً حتى 6 مساءً"
+  },
+  "promise": {
+    "title": "رد سريع",
+    "body": "يلتزم فريقنا بالرد على رسالتك في غضون 24 ساعة عمل. للحالات العاجلة، تواصل معنا مباشرة عبر الهاتف."
+  },
+  "form": {
+    "sectionTitle": "إرسال رسالة",
+    "sectionSubtitle": "أكمل النموذج أدناه وسنرد عليك في أقرب وقت.",
+    "name": "الاسم الكامل",
+    "namePlaceholder": "مثال: أحمد محمد",
+    "email": "البريد الإلكتروني (اختياري)",
+    "emailPlaceholder": "example@email.com",
+    "phone": "رقم الهاتف",
+    "phonePlaceholder": "+966 5XX XXX XXXX",
+    "subject": "الموضوع",
+    "subjectPlaceholder": "موضوع رسالتك",
+    "message": "الرسالة",
+    "messagePlaceholder": "اكتب رسالتك هنا...",
+    "submit": "إرسال الرسالة",
+    "sending": "جارٍ الإرسال...",
+    "successTitle": "تم إرسال رسالتك!",
+    "successMessage": "شكراً لتواصلك معنا. سنرد عليك قريباً.",
+    "sendAnother": "إرسال رسالة جديدة",
+    "errorMessage": "حدث خطأ أثناء الإرسال. يرجى المحاولة مجدداً."
+  },
+  "validation": {
+    "nameRequired": "الاسم مطلوب",
+    "emailInvalid": "يرجى إدخال بريد إلكتروني صحيح",
+    "phoneRequired": "رقم الهاتف مطلوب",
+    "messageRequired": "الرسالة مطلوبة"
+  }
+}

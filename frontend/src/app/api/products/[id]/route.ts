@@ -6,6 +6,7 @@ import { prisma } from '@/lib/prisma';
 const PatchProductSchema = z.object({
   name: z.string().trim().min(2, 'Name must be at least 2 characters').max(255).optional(),
   nameEn: z.string().trim().max(255).optional().or(z.literal('')),
+  nameAr: z.string().trim().max(255).optional().or(z.literal('')),
   slug: z
     .string()
     .trim()
@@ -15,8 +16,10 @@ const PatchProductSchema = z.object({
     .optional(),
   excerpt: z.string().trim().min(10, 'Excerpt must be at least 10 characters').max(500).optional(),
   excerptEn: z.string().trim().max(500).optional().or(z.literal('')),
+  excerptAr: z.string().trim().max(500).optional().or(z.literal('')),
   description: z.string().trim().min(20, 'Description must be at least 20 characters').optional(),
   descriptionEn: z.string().trim().optional().or(z.literal('')),
+  descriptionAr: z.string().trim().optional().or(z.literal('')),
   image: z.string().trim().url('Image must be a valid URL').optional().or(z.literal('')),
   published: z.boolean().optional(),
   isFeatured: z.boolean().optional(),
@@ -72,14 +75,17 @@ export async function PATCH(
     return NextResponse.json({ success: false, errors }, { status: 400 });
   }
 
-  const { image, nameEn, excerptEn, descriptionEn, specifications, ...rest } = parsed.data;
+  const { image, nameEn, nameAr, excerptEn, excerptAr, descriptionEn, descriptionAr, specifications, ...rest } = parsed.data;
 
   // Build update payload — only include fields that were sent
   const data: Record<string, unknown> = { ...rest };
   if (image !== undefined) data.image = image || null;
   if (nameEn !== undefined) data.nameEn = nameEn || null;
+  if (nameAr !== undefined) data.nameAr = nameAr || null;
   if (excerptEn !== undefined) data.excerptEn = excerptEn || null;
+  if (excerptAr !== undefined) data.excerptAr = excerptAr || null;
   if (descriptionEn !== undefined) data.descriptionEn = descriptionEn || null;
+  if (descriptionAr !== undefined) data.descriptionAr = descriptionAr || null;
   if (specifications !== undefined) data.specifications = specifications ?? null;
 
   try {

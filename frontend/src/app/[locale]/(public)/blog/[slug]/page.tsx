@@ -22,14 +22,17 @@ function toAbsoluteUrl(path: string | null | undefined): string | undefined {
 export async function generateMetadata({ params }: BlogArticlePageProps): Promise<Metadata> {
   const { slug, locale } = await params;
   const isEn = locale === 'en';
+  const isAr = locale === 'ar';
 
   const article = await prisma.article.findUnique({
     where: { slug, published: true },
     select: {
       title: true,
       titleEn: true,
+      titleAr: true,
       excerpt: true,
       excerptEn: true,
+      excerptAr: true,
       image: true,
       createdAt: true,
       updatedAt: true,
@@ -37,9 +40,14 @@ export async function generateMetadata({ params }: BlogArticlePageProps): Promis
   });
   if (!article) return {};
 
-  const title = (isEn ? article.titleEn || article.title : article.title);
-  const description = (isEn ? article.excerptEn || article.excerpt : article.excerpt);
+  const title = isAr
+    ? (article.titleAr?.trim()   || article.title || article.titleEn || '')
+    : isEn ? (article.titleEn?.trim() || article.title) : article.title;
+  const description = isAr
+    ? (article.excerptAr?.trim()   || article.excerpt || article.excerptEn || '')
+    : isEn ? (article.excerptEn?.trim() || article.excerpt) : article.excerpt;
   const imageUrl = toAbsoluteUrl(article.image);
+  const ogLocale = isEn ? 'en_US' : isAr ? 'ar_SA' : 'fa_IR';
 
   return {
     title,
@@ -50,7 +58,7 @@ export async function generateMetadata({ params }: BlogArticlePageProps): Promis
       type: 'article',
       title,
       description,
-      locale: locale === 'en' ? 'en_US' : 'fa_IR',
+      locale: ogLocale,
       publishedTime: article.createdAt.toISOString(),
       modifiedTime: article.updatedAt.toISOString(),
       ...(imageUrl ? { images: [{ url: imageUrl }] } : {}),
@@ -71,15 +79,22 @@ export async function generateMetadata({ params }: BlogArticlePageProps): Promis
 export default async function BlogArticlePage({ params }: BlogArticlePageProps) {
   const { slug, locale } = await params;
   const isEn = locale === 'en';
+  const isAr = locale === 'ar';
 
   const article = await prisma.article.findUnique({
     where: { slug, published: true },
   });
   if (!article) notFound();
 
-  const displayTitle   = isEn ? (article.titleEn   || article.title)   : article.title;
-  const displayExcerpt = isEn ? (article.excerptEn || article.excerpt) : article.excerpt;
-  const displayContent = isEn ? (article.contentEn || article.content) : article.content;
+  const displayTitle = isAr
+    ? (article.titleAr?.trim()   || article.title || article.titleEn || '')
+    : isEn ? (article.titleEn?.trim() || article.title) : article.title;
+  const displayExcerpt = isAr
+    ? (article.excerptAr?.trim()   || article.excerpt || article.excerptEn || '')
+    : isEn ? (article.excerptEn?.trim() || article.excerpt) : article.excerpt;
+  const displayContent = isAr
+    ? (article.contentAr?.trim()   || article.content || article.contentEn || '')
+    : isEn ? (article.contentEn?.trim() || article.content) : article.content;
 
   const publishedAt = article.createdAt.toISOString();
   const modifiedAt  = article.updatedAt.toISOString();
@@ -142,7 +157,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
 
       {/* Content */}
       <div className="space-y-4 text-gray-800 leading-relaxed">
-        {displayContent.split('\n').map((paragraph, i) =>
+        {displayContent.split('\n').map((paragraph: string, i: number) =>
           paragraph.trim() ? (
             <p key={i}>{paragraph}</p>
           ) : null

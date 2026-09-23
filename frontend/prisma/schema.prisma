@@ -23,11 +23,14 @@ model Article {
   id          String   @id @default(uuid())
   title       String
   titleEn     String?
+  titleAr     String?
   slug        String   @unique
   excerpt     String
   excerptEn   String?
+  excerptAr   String?
   content     String
   contentEn   String?
+  contentAr   String?
   image       String?
   published   Boolean  @default(false)
   createdAt   DateTime @default(now())
@@ -38,11 +41,14 @@ model Product {
   id            String         @id @default(cuid())
   name          String
   nameEn        String?
+  nameAr        String?
   slug          String         @unique
   excerpt       String
   excerptEn     String?
+  excerptAr     String?
   description   String
   descriptionEn String?
+  descriptionAr String?
   image         String?
   specifications Json?
   published     Boolean        @default(false)
@@ -58,6 +64,7 @@ model ProductImage {
   url       String
   altEn     String?
   altFa     String?
+  altAr     String?
   sortOrder Int      @default(0)
   isPrimary Boolean  @default(false)
   createdAt DateTime @default(now())

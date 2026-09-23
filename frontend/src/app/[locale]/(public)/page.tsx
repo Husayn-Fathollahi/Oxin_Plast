@@ -42,6 +42,7 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
 export default async function HomePage({ params }: HomePageProps) {
   const { locale } = await params;
   const isEn = locale === 'en';
+  const isAr = locale === 'ar';
   const t = await getTranslations({ locale, namespace: 'home' });
   const tProducts = await getTranslations({ locale, namespace: 'products' });
 
@@ -59,7 +60,7 @@ export default async function HomePage({ params }: HomePageProps) {
   let homeProducts = featured;
   if (featured.length < 3) {
     const fillers = await prisma.product.findMany({
-      where: { published: true, id: { notIn: featured.map((p) => p.id) } },
+      where: { published: true, id: { notIn: featured.map((p: any) => p.id) } },
       orderBy: { createdAt: 'desc' },
       take: 3 - featured.length,
       include: { images: { orderBy: { sortOrder: 'asc' } } },
@@ -70,16 +71,20 @@ export default async function HomePage({ params }: HomePageProps) {
   const tints = ['bg-brand-gradient', 'bg-coral-gradient', 'bg-brand-gradient'] as const;
   const cardIcons = [Boxes, Layers, Gauge] as const;
 
-  const featuredCards = homeProducts.map((p, i) => {
-    const primaryImage = p.images.find((img) => img.isPrimary) ?? p.images[0] ?? null;
+  const featuredCards = homeProducts.map((p: any, i: number) => {
+    const primaryImage = p.images.find((img: any) => img.isPrimary) ?? p.images[0] ?? null;
     const categorySlug = categorizeProduct(p.name, p.nameEn, p.slug);
     return {
       slug: p.slug,
-      title: isEn ? p.nameEn || p.name : p.name,
-      desc: isEn ? p.excerptEn || p.excerpt : p.excerpt,
+      title: isAr
+        ? p.nameAr || p.name
+        : isEn ? p.nameEn || p.name : p.name,
+      desc: isAr
+        ? p.excerptAr || p.excerpt
+        : isEn ? p.excerptEn || p.excerpt : p.excerpt,
       category: categorySlug
         ? tProducts(`categories.${categorySlug}`)
-        : isEn ? 'Products' : 'محصولات',
+        : isEn ? 'Products' : isAr ? 'المنتجات' : 'محصولات',
       imageUrl: primaryImage?.url ?? p.image ?? null,
       Icon: cardIcons[i % cardIcons.length],
       tint: tints[i % tints.length],
@@ -109,15 +114,20 @@ export default async function HomePage({ params }: HomePageProps) {
             <div className="lg:col-span-6">
               <div className="chip animate-fade-up animate-fill-both">
                 <Sparkles className="h-3.5 w-3.5" />
-                {isEn ? 'Specialized Manufacturer of Industrial Plastics Since 1990' : 'تولیدکننده تخصصی پلاستیک صنعتی از ۱۳۶۹'}
+                {isAr ? 'مصنّع متخصص في البلاستيك الصناعي منذ 1990' : isEn ? 'Specialized Manufacturer of Industrial Plastics Since 1990' : 'تولیدکننده تخصصی پلاستیک صنعتی از ۱۳۶۹'}
               </div>
 
               <h1 className="display text-display mt-6 animate-fade-up animate-fill-both animate-delay-100">
-                {isEn ? (
+                {isAr ? (
+                  <>
+                    حاويات <span className="text-gradient">بلاستيكية صناعية</span>؛<br />
+                    متينة ومطابقة للمعايير
+                  </>
+                ) : isEn ? (
                <>
                 <span className="text-gradient">Industrial Plastic</span> containers;<br />
                  durable and compliant.
-                </> 
+                </>
                 ) : (
                 <>
                     تولید ظروف <span className="text-gradient">پلاستیکی صنعتی</span>؛<br />
@@ -128,7 +138,9 @@ export default async function HomePage({ params }: HomePageProps) {
               </h1>
 
       <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
-         {isEn
+         {isAr
+                  ? 'جالونات وحاويات تخزين HDPE عالية الجودة، مصمَّمة لأقسى البيئات الصناعية ومبنية لتدوم لعقود.'
+                  : isEn
                   ? 'Premium HDPE jerry cans and storage containers, engineered for the most demanding industrial environments and built to last for decades.'
                 : 'گالن‌ها و ظروف ذخیره‌سازی HDPE درجه‌یک، مهندسی‌شده برای سخت‌ترین محیط‌های صنعتی و ساخته‌شده برای دهه‌ها ماندگاری.'}
       </p>
@@ -136,7 +148,7 @@ export default async function HomePage({ params }: HomePageProps) {
 
               <div className="mt-10 flex flex-wrap items-center gap-4 animate-fade-up animate-fill-both animate-delay-300">
                 <Link href="/products" className="btn-primary">
-                  {isEn ? 'Explore Products' : 'مشاهده محصولات'}
+                  {isAr ? 'استعرض المنتجات' : isEn ? 'Explore Products' : 'مشاهده محصولات'}
                   <ArrowRight className="h-4 w-4 flip-x" />
                 </Link>
                 <a
@@ -145,24 +157,24 @@ export default async function HomePage({ params }: HomePageProps) {
                   rel="noopener noreferrer"
                   className="btn-ghost"
                 >
-                  {isEn ? 'Download Catalog' : 'دانلود کاتالوگ'}
+                  {isAr ? 'تحميل الكاتالوج' : isEn ? 'Download Catalog' : 'دانلود کاتالوگ'}
                 </a>
               </div>
 
               {/* mini trust row */}
               <div className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-3 animate-fade-in animate-fill-both animate-delay-500">
                 {[
-                 { 
-      icon: ShieldCheck, 
-      label: isEn ? 'ISO 9001 Certified' : 'ایزو ۹۰۰۱' 
+                 {
+      icon: ShieldCheck,
+      label: isAr ? 'معتمد ISO 9001' : isEn ? 'ISO 9001 Certified' : 'ایزو ۹۰۰۱'
     },
-    { 
-      icon: Sparkles, // آیکون مرتبط با مواد نو و درخشان (جایگزین Recycle)
-      label: isEn ? '100% Virgin Materials' : '۱۰۰٪ مواد نو و درجه‌یک' 
+    {
+      icon: Sparkles,
+      label: isAr ? '١٠٠٪ مواد بكر' : isEn ? '100% Virgin Materials' : '۱۰۰٪ مواد نو و درجه‌یک'
     },
-    { 
-      icon: Gauge, 
-      label: isEn ? 'UN Approved Packaging' : 'بر اساس استاندارد های (UN)' 
+    {
+      icon: Gauge,
+      label: isAr ? 'معتمد UN للتعبئة' : isEn ? 'UN Approved Packaging' : 'بر اساس استاندارد های (UN)'
     },
       ].map(({ icon: Icon, label }) => (
       <div key={label} className="flex items-center gap-2 text-sm font-semibold text-ink-muted">
@@ -193,7 +205,7 @@ export default async function HomePage({ params }: HomePageProps) {
                 <div className="absolute -bottom-6 -start-6 card p-5 w-44 animate-float">
                   <div className="display text-3xl text-gradient">35+</div>
                   <div className="text-xs font-semibold text-ink-muted mt-1">
-                    {isEn ? 'Years of expertise' : 'سال تجربه'}
+                    {isAr ? 'سنوات من الخبرة' : isEn ? 'Years of expertise' : 'سال تجربه'}
                   </div>
                 </div>
 
@@ -204,7 +216,7 @@ export default async function HomePage({ params }: HomePageProps) {
                   </span>
                   <div className="pe-2">
                     <div className="text-sm font-bold text-ink">500+</div>
-                    <div className="text-[11px] text-ink-muted">{isEn ? 'Clients' : 'مشتری'}</div>
+                    <div className="text-[11px] text-ink-muted">{isAr ? 'عميل' : isEn ? 'Clients' : 'مشتری'}</div>
                   </div>
                 </div>
               </div>
@@ -241,10 +253,10 @@ export default async function HomePage({ params }: HomePageProps) {
       <section className="container mx-auto py-20">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { n: isEn ? '35+'   : '۳۵+',   l: isEn ? 'Years Experience' : 'سال تجربه',     g: 'bg-brand-gradient' },
-            { n: isEn ? '500+'  : '۵۰۰+',  l: isEn ? 'Product Lines'    : 'خط محصول',      g: 'bg-coral-gradient' },
-            { n: isEn ? '1200+' : '۱۲۰۰+', l: isEn ? 'Active Clients'   : 'مشتری فعال',    g: 'bg-brand-gradient' },
-            { n: isEn ? '31'    : '۳۱',    l: isEn ? 'Provinces Served' : 'استان پوشش',    g: 'bg-coral-gradient' },
+            { n: '35+',   l: isAr ? 'سنوات خبرة'     : isEn ? 'Years Experience' : 'سال تجربه',  g: 'bg-brand-gradient' },
+            { n: '500+',  l: isAr ? 'خطوط إنتاج'     : isEn ? 'Product Lines'    : 'خط محصول',   g: 'bg-coral-gradient' },
+            { n: '1200+', l: isAr ? 'عميل نشط'       : isEn ? 'Active Clients'   : 'مشتری فعال', g: 'bg-brand-gradient' },
+            { n: '31',    l: isAr ? 'محافظة مخدومة'  : isEn ? 'Provinces Served' : 'استان پوشش', g: 'bg-coral-gradient' },
           ].map(({ n, l, g }) => (
             <div key={l} className="card p-7 text-center">
               <div className={`mx-auto mb-4 h-1.5 w-12 rounded-full ${g}`} />
@@ -261,20 +273,21 @@ export default async function HomePage({ params }: HomePageProps) {
       <section id="products" className="container mx-auto py-20">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-14">
           <div>
-            <span className="eyebrow"><span className="dash" /> {isEn ? 'Our Products' : 'محصولات ما'}</span>
+            <span className="eyebrow"><span className="dash" /> {isAr ? 'منتجاتنا' : isEn ? 'Our Products' : 'محصولات ما'}</span>
             <h2 className="display text-display-sm mt-4 max-w-xl">
-              {isEn ? <>Engineered for<br /><span className="text-gradient">industrial excellence</span></>
+              {isAr ? <>مصمَّمة لتحقيق<br /><span className="text-gradient">التميز الصناعي</span></>
+                : isEn ? <>Engineered for<br /><span className="text-gradient">industrial excellence</span></>
                     : <>مهندسی‌شده برای<br /><span className="text-gradient">برتری صنعتی</span></>}
             </h2>
           </div>
           <Link href="/products" className="btn-ghost self-start">
-            {isEn ? 'View All Products' : 'مشاهده همه'}
+            {isAr ? 'عرض جميع المنتجات' : isEn ? 'View All Products' : 'مشاهده همه'}
             <ArrowUpRight className="h-4 w-4 flip-x" />
           </Link>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featuredCards.map(({ slug, Icon, category, title, desc, imageUrl, tint }) => (
+          {featuredCards.map(({ slug, Icon, category, title, desc, imageUrl, tint }: any) => (
             <Link key={slug} href={`/products/${slug}`} className="card group overflow-hidden">
               <div className="relative h-56 overflow-hidden bg-sand-100">
                 <FeaturedProductImage src={imageUrl} alt={title} />
@@ -287,7 +300,7 @@ export default async function HomePage({ params }: HomePageProps) {
                 <h3 className="display text-xl mt-2 text-ink">{title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-ink-muted line-clamp-3">{desc}</p>
                 <span className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-brand-700">
-                  {isEn ? 'View Details' : 'مشاهده جزئیات'}
+                  {isAr ? 'عرض التفاصيل' : isEn ? 'View Details' : 'مشاهده جزئیات'}
                   <ArrowRight className="h-4 w-4 flip-x transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
                 </span>
               </div>
@@ -301,20 +314,21 @@ export default async function HomePage({ params }: HomePageProps) {
           ============================================================ */}
       <section className="container mx-auto py-20">
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="eyebrow justify-center"><span className="dash" /> {isEn ? 'Industries We Serve' : 'صنایع تحت پوشش'} <span className="dash" /></span>
+          <span className="eyebrow justify-center"><span className="dash" /> {isAr ? 'القطاعات التي نخدمها' : isEn ? 'Industries We Serve' : 'صنایع تحت پوشش'} <span className="dash" /></span>
           <h2 className="display text-display-sm mt-4">
-            {isEn ? <>Trusted across <span className="text-gradient">every sector</span></>
+            {isAr ? <>موثوق به في <span className="text-gradient">كل قطاع</span></>
+              : isEn ? <>Trusted across <span className="text-gradient">every sector</span></>
                   : <>مورد اعتماد در <span className="text-gradient">هر صنعت</span></>}
           </h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {[
-            { icon: FlaskConical, t: isEn ? 'Chemicals' : 'شیمیایی' },
-            { icon: Droplets,     t: isEn ? 'Food & Oil' : 'غذا و روغن' },
-            { icon: Truck,        t: isEn ? 'Logistics' : 'حمل‌ونقل' },
-            { icon: Building2,    t: isEn ? 'Construction' : 'ساختمان' },
-            { icon: Recycle,      t: isEn ? 'Agriculture' : 'کشاورزی' },
-            { icon: Gauge,        t: isEn ? 'Petrochemical' : 'پتروشیمی' },
+            { icon: FlaskConical, t: isAr ? 'المواد الكيميائية' : isEn ? 'Chemicals' : 'شیمیایی' },
+            { icon: Droplets,     t: isAr ? 'غذاء وزيوت'       : isEn ? 'Food & Oil' : 'غذا و روغن' },
+            { icon: Truck,        t: isAr ? 'اللوجستيات'        : isEn ? 'Logistics' : 'حمل‌ونقل' },
+            { icon: Building2,    t: isAr ? 'البناء'            : isEn ? 'Construction' : 'ساختمان' },
+            { icon: Recycle,      t: isAr ? 'الزراعة'           : isEn ? 'Agriculture' : 'کشاورزی' },
+            { icon: Gauge,        t: isAr ? 'البتروكيماويات'    : isEn ? 'Petrochemical' : 'پتروشیمی' },
           ].map(({ icon: Icon, t: label }, i) => (
             <div key={label} className="card p-6 flex flex-col items-center text-center gap-3 group">
               <span className={`icon-tile h-12 w-12 ${i % 2 === 0 ? 'bg-brand-gradient' : 'bg-coral-gradient'} transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6`}>
@@ -341,24 +355,26 @@ export default async function HomePage({ params }: HomePageProps) {
             <div className="relative grid lg:grid-cols-2 gap-12 items-start">
               <div>
                 <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-brand-300">
-                  <span className="inline-block h-px w-10 bg-brand-400" /> {isEn ? 'Why Choose Us' : 'چرا ما'}
+                  <span className="inline-block h-px w-10 bg-brand-400" /> {isAr ? 'لماذا تختارنا' : isEn ? 'Why Choose Us' : 'چرا ما'}
                 </span>
                 <h2 className="display text-display-sm mt-4 text-white">
-                  {isEn ? <>Precision crafted.<br /><span className="text-brand-300">Lifetime guaranteed.</span></>
+                  {isAr ? <>صناعة دقيقة.<br /><span className="text-brand-300">جودة مضمونة.</span></>
+                    : isEn ? <>Precision crafted.<br /><span className="text-brand-300">Lifetime guaranteed.</span></>
                         : <>دقت در ساخت.<br /><span className="text-brand-300">کیفیت تضمین‌شده.</span></>}
                 </h2>
                 <p className="mt-6 max-w-md text-brand-100/80 leading-relaxed">
-                  {isEn ? 'Three decades of industrial manufacturing expertise, delivering containers that outlast expectations.'
+                  {isAr ? 'ثلاثة عقود من الخبرة في التصنيع الصناعي؛ حاويات تتجاوز التوقعات.'
+                    : isEn ? 'Three decades of industrial manufacturing expertise, delivering containers that outlast expectations.'
                         : 'سه دهه تجربه تولید صنعتی؛ ظروفی که از انتظارات شما فراتر می‌روند.'}
                 </p>
               </div>
 
               <div className="grid sm:grid-cols-2 gap-4">
                 {[
-                  { icon: ShieldCheck, t: isEn ? 'Certified Quality' : 'کیفیت گواهی‌شده', d: isEn ? 'ISO 9001, ISIRI and UN approvals.' : 'تأیید ISO 9001، ISIRI و UN.' },
-                  { icon: FlaskConical, t: isEn ? 'In-House Lab' : 'آزمایشگاه داخلی', d: isEn ? 'Every batch tested before dispatch.' : 'آزمایش هر دسته پیش از ارسال.' },
-                  { icon: Truck, t: isEn ? 'Nationwide Delivery' : 'ارسال سراسری', d: isEn ? 'Covering all 31 provinces of Iran.' : 'پوشش تمام ۳۱ استان کشور.' },
-                  { icon: Sparkles, t: isEn ? 'Custom Manufacturing' : 'تولید سفارشی', d: isEn ? 'Bespoke sizes, colors and branding.' : 'اندازه، رنگ و برند سفارشی.' },
+                  { icon: ShieldCheck,  t: isAr ? 'جودة معتمدة'     : isEn ? 'Certified Quality'      : 'کیفیت گواهی‌شده', d: isAr ? 'اعتمادات ISO 9001 وISIRI وUN.' : isEn ? 'ISO 9001, ISIRI and UN approvals.' : 'تأیید ISO 9001، ISIRI و UN.' },
+                  { icon: FlaskConical, t: isAr ? 'مختبر داخلي'     : isEn ? 'In-House Lab'            : 'آزمایشگاه داخلی', d: isAr ? 'اختبار كل دفعة قبل الشحن.'     : isEn ? 'Every batch tested before dispatch.' : 'آزمایش هر دسته پیش از ارسال.' },
+                  { icon: Truck,        t: isAr ? 'توصيل سريع'      : isEn ? 'Nationwide Delivery'     : 'ارسال سراسری',    d: isAr ? 'تغطية جميع مناطق الشحن.'       : isEn ? 'Covering all 31 provinces of Iran.' : 'پوشش تمام ۳۱ استان کشور.' },
+                  { icon: Sparkles,     t: isAr ? 'تصنيع مخصص'      : isEn ? 'Custom Manufacturing'    : 'تولید سفارشی',    d: isAr ? 'أحجام وألوان وعلامات تجارية مخصصة.' : isEn ? 'Bespoke sizes, colors and branding.' : 'اندازه، رنگ و برند سفارشی.' },
                 ].map(({ icon: Icon, t: title, d }) => (
                   <div key={title} className="rounded-3xl bg-white/5 border border-white/10 p-6 transition-colors hover:bg-white/10">
                     <span className="icon-tile h-12 w-12 bg-white/10 text-brand-300">
@@ -378,7 +394,7 @@ export default async function HomePage({ params }: HomePageProps) {
           TESTIMONIAL
           ============================================================ */}
       <section className="container mx-auto py-20">
-        <TestimonialsCarousel isEn={isEn} />
+        <TestimonialsCarousel isEn={isEn} isAr={isAr} />
       </section>
 
       {/* ============================================================
@@ -387,36 +403,47 @@ export default async function HomePage({ params }: HomePageProps) {
       <section className="container mx-auto py-20">
         <div className="grid lg:grid-cols-12 gap-12">
           <div className="lg:col-span-4">
-            <span className="eyebrow"><span className="dash" /> {isEn ? 'Common Questions' : 'سوالات متداول'}</span>
+            <span className="eyebrow"><span className="dash" /> {isAr ? 'الأسئلة الشائعة' : isEn ? 'Common Questions' : 'سوالات متداول'}</span>
             <h2 className="display text-display-sm mt-4">
-              {isEn ? <>Answers,<br />before you ask.</> : <>پاسخ‌ها،<br />پیش از پرسش.</>}
+              {isAr ? <>الإجابات،<br />قبل أن تسأل.</> : isEn ? <>Answers,<br />before you ask.</> : <>پاسخ‌ها،<br />پیش از پرسش.</>}
             </h2>
             <p className="mt-5 text-ink-muted leading-relaxed">
-              {isEn ? "Can't find what you're looking for? Our team is one message away."
+              {isAr ? 'لم تجد ما تبحث عنه؟ فريقنا على بُعد رسالة.'
+                : isEn ? "Can't find what you're looking for? Our team is one message away."
                     : 'پاسخ خود را پیدا نکردید؟ تیم ما یک پیام با شما فاصله دارد.'}
             </p>
             <Link href="/contact" className="btn-primary mt-7">
-              {isEn ? 'Contact Us' : 'تماس با ما'}
+              {isAr ? 'اتصل بنا' : isEn ? 'Contact Us' : 'تماس با ما'}
               <ArrowRight className="h-4 w-4 flip-x" />
             </Link>
           </div>
 
           <div className="lg:col-span-8 space-y-4">
             {[
-              { q: isEn ? 'What materials are used in your jerry cans?' : 'گالن‌های شما از چه موادی ساخته شده‌اند؟',
-                a: isEn ? 'We use HDPE grade 1 - food-safe, chemical-resistant and UV-stabilized for outdoor use.'
+              { q: isAr ? 'ما المواد المستخدمة في جالوناتكم؟'
+                  : isEn ? 'What materials are used in your jerry cans?' : 'گالن‌های شما از چه موادی ساخته شده‌اند؟',
+                a: isAr ? 'نستخدم HDPE من الدرجة الأولى — آمن للغذاء، مقاوم للمواد الكيميائية ومستقر ضد الأشعة فوق البنفسجية.'
+                  : isEn ? 'We use HDPE grade 1 - food-safe, chemical-resistant and UV-stabilized for outdoor use.'
                         : 'از HDPE درجه یک استفاده می‌کنیم؛ ایمن برای مواد غذایی، مقاوم در برابر مواد شیمیایی و UV-پایدار.' },
-              { q: isEn ? 'What is the minimum order quantity?' : 'حداقل تعداد سفارش چقدر است؟',
-                a: isEn ? 'Standard products start at 200 units. Custom-branded orders require a minimum of 500 units.'
+              { q: isAr ? 'ما هو الحد الأدنى لكمية الطلب؟'
+                  : isEn ? 'What is the minimum order quantity?' : 'حداقل تعداد سفارش چقدر است؟',
+                a: isAr ? 'المنتجات القياسية تبدأ من 200 وحدة. الطلبات ذات العلامة التجارية الخاصة تتطلب 500 وحدة كحد أدنى.'
+                  : isEn ? 'Standard products start at 200 units. Custom-branded orders require a minimum of 500 units.'
                         : 'محصولات استاندارد از ۲۰۰ عدد و سفارشات برند‌شده از ۵۰۰ عدد آغاز می‌شوند.' },
-              { q: isEn ? 'Do you offer custom sizing and colors?' : 'اندازه و رنگ سفارشی دارید؟',
-                a: isEn ? 'Yes - we manufacture from 1L to 220L in the full Pantone palette with custom labeling.'
+              { q: isAr ? 'هل تقدمون أحجاماً وألواناً مخصصة؟'
+                  : isEn ? 'Do you offer custom sizing and colors?' : 'اندازه و رنگ سفارشی دارید؟',
+                a: isAr ? 'نعم — نصنع من 1 لتر إلى 220 لتراً بالألوان الكاملة لبنتون مع ملصقات مخصصة.'
+                  : isEn ? 'Yes - we manufacture from 1L to 220L in the full Pantone palette with custom labeling.'
                         : 'بله؛ از ۱ تا ۲۲۰ لیتر در طیف کامل پانتون با لیبل سفارشی تولید می‌کنیم.' },
-              { q: isEn ? 'What is the delivery timeframe?' : 'زمان تحویل چقدر است؟',
-                a: isEn ? 'Standard orders ship within 5 to 7 business days. Custom orders require 15 to 25 days.'
+              { q: isAr ? 'ما هو الإطار الزمني للتسليم؟'
+                  : isEn ? 'What is the delivery timeframe?' : 'زمان تحویل چقدر است؟',
+                a: isAr ? 'الطلبات القياسية تُشحن خلال 5 إلى 7 أيام عمل. الطلبات المخصصة تحتاج 15 إلى 25 يوماً.'
+                  : isEn ? 'Standard orders ship within 5 to 7 business days. Custom orders require 15 to 25 days.'
                         : 'سفارشات استاندارد ۵ تا ۷ روز کاری و سفارشات سفارشی ۱۵ تا ۲۵ روز.' },
-              { q: isEn ? 'Do you export internationally?' : 'صادرات بین‌المللی دارید؟',
-                a: isEn ? 'Yes. Our products hold UN approval - currently shipping to Iraq, Afghanistan, Azerbaijan and CIS countries.'
+              { q: isAr ? 'هل تصدّرون دولياً؟'
+                  : isEn ? 'Do you export internationally?' : 'صادرات بین‌المللی دارید؟',
+                a: isAr ? 'نعم. منتجاتنا حاصلة على اعتماد UN — نشحن حالياً إلى العراق وأفغانستان وأذربيجان ودول رابطة الدول المستقلة.'
+                  : isEn ? 'Yes. Our products hold UN approval - currently shipping to Iraq, Afghanistan, Azerbaijan and CIS countries.'
                         : 'بله؛ محصولات ما تأییدیه UN دارند و به عراق، افغانستان، آذربایجان و کشورهای CIS ارسال می‌شوند.' },
             ].map(({ q, a }) => (
               <details key={q} className="faq-details card p-6 group">
@@ -444,14 +471,16 @@ export default async function HomePage({ params }: HomePageProps) {
           </div>
           <div className="relative">
             <h2 className="display text-display-sm text-white max-w-2xl mx-auto">
-              {isEn ? 'Ready to order? Let us build it for you.' : 'آماده سفارش هستید؟ بسپارید به ما.'}
+              {isAr ? 'هل أنت مستعد للطلب؟ دعنا ننفذه لك.'
+                : isEn ? 'Ready to order? Let us build it for you.' : 'آماده سفارش هستید؟ بسپارید به ما.'}
             </h2>
             <p className="mt-5 text-white/85 max-w-xl mx-auto leading-relaxed">
-              {isEn ? 'Receive a free quote within 24 hours. Our sales team is standing by.'
+              {isAr ? 'احصل على عرض سعر مجاني خلال 24 ساعة. فريق المبيعات لدينا جاهز.'
+                : isEn ? 'Receive a free quote within 24 hours. Our sales team is standing by.'
                     : 'در کمتر از ۲۴ ساعت قیمت  دریافت کنید. تیم فروش ما آماده است.'}
             </p>
             <Link href="/contact" className="mt-9 inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-bold text-coral-600 shadow-lift transition-transform hover:-translate-y-1">
-              {isEn ? 'Get a Free Quote' : 'دریافت قیمت '}
+              {isAr ? 'احصل على عرض سعر مجاني' : isEn ? 'Get a Free Quote' : 'دریافت قیمت '}
               <ArrowRight className="h-4 w-4 flip-x" />
             </Link>
           </div>
@@ -461,7 +490,7 @@ export default async function HomePage({ params }: HomePageProps) {
       {/* ============================================================
           LATEST ARTICLES
           ============================================================ */}
-      <LatestArticles locale={locale} isEn={isEn} t={t} />
+      <LatestArticles locale={locale} isEn={isEn} isAr={isAr} t={t} />
 
       {/* ============================================================
           CONTACT
@@ -474,10 +503,12 @@ export default async function HomePage({ params }: HomePageProps) {
 async function LatestArticles({
   locale,
   isEn,
+  isAr,
   t,
 }: {
   locale: string;
   isEn: boolean;
+  isAr: boolean;
   t: Awaited<ReturnType<typeof getTranslations<'home'>>>;
 }) {
   const articles = await prisma.article.findMany({
@@ -488,8 +519,10 @@ async function LatestArticles({
       slug: true,
       title: true,
       titleEn: true,
+      titleAr: true,
       excerpt: true,
       excerptEn: true,
+      excerptAr: true,
       image: true,
       createdAt: true,
     },
@@ -501,19 +534,19 @@ async function LatestArticles({
     <section className="container mx-auto py-20">
       <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-14">
         <div>
-          <span className="eyebrow"><span className="dash" /> {isEn ? 'Knowledge' : 'دانش‌نامه'}</span>
+          <span className="eyebrow"><span className="dash" /> {isAr ? 'المعرفة' : isEn ? 'Knowledge' : 'دانش‌نامه'}</span>
           <h2 className="display text-display-sm mt-4">{t('latestBlog.title')}</h2>
         </div>
         <Link href="/blog" className="btn-ghost self-start">
-          {isEn ? 'All Articles' : 'همه مقالات'}
+          {isAr ? 'جميع المقالات' : isEn ? 'All Articles' : 'همه مقالات'}
           <ArrowUpRight className="h-4 w-4 flip-x" />
         </Link>
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {articles.map((a) => {
-          const title   = isEn ? (a.titleEn   || a.title)   : a.title;
-          const excerpt = isEn ? (a.excerptEn || a.excerpt) : a.excerpt;
+        {articles.map((a: any) => {
+          const title   = isAr ? (a.titleAr   || a.title)   : isEn ? (a.titleEn   || a.title)   : a.title;
+          const excerpt = isAr ? (a.excerptAr || a.excerpt) : isEn ? (a.excerptEn || a.excerpt) : a.excerpt;
           return (
             <Link key={a.slug} href={`/blog/${a.slug}` as '/'} className="card group overflow-hidden">
               <div className="relative h-48 overflow-hidden bg-sand-100">
@@ -532,7 +565,7 @@ async function LatestArticles({
                 <h3 className="display text-lg mt-2 text-ink line-clamp-2">{title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-ink-muted line-clamp-2">{excerpt}</p>
                 <span className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-brand-700">
-                  {isEn ? 'Read More' : 'ادامه مطلب'}
+                  {isAr ? 'اقرأ المزيد' : isEn ? 'Read More' : 'ادامه مطلب'}
                   <ArrowRight className="h-4 w-4 flip-x transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
                 </span>
               </div>

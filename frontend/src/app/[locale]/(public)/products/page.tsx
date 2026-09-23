@@ -44,6 +44,7 @@ export default async function ProductsPage({
   const t = await getTranslations({ locale, namespace: 'products' });
 
   const products = await prisma.product.findMany({
+    where: { published: true },
     orderBy: { createdAt: 'desc' },
     include: {
       images: {
@@ -53,16 +54,22 @@ export default async function ProductsPage({
   });
 
   const isEn = locale === 'en';
+  const isAr = locale === 'ar';
 
   // Map Prisma shape → explorer cards with locale-aware fields + category.
+  // Triple fallback: AR → FA → EN ensures a card always has a visible name.
   const cards: ExplorerCard[] = products.map((p) => {
     const primaryImage =
       p.images.find((img) => img.isPrimary) ?? p.images[0] ?? null;
     const categorySlug = categorizeProduct(p.name, p.nameEn, p.slug);
     return {
-      name: (isEn ? p.nameEn || p.name : p.name),
+      name: isAr
+        ? (p.nameAr?.trim() || p.name || p.nameEn || '')
+        : isEn ? (p.nameEn?.trim() || p.name) : p.name,
       slug: p.slug,
-      shortDescription: (isEn ? p.excerptEn || p.excerpt : p.excerpt),
+      shortDescription: isAr
+        ? (p.excerptAr?.trim() || p.excerpt || p.excerptEn || '')
+        : isEn ? (p.excerptEn?.trim() || p.excerpt) : p.excerpt,
       imageUrl: primaryImage?.url ?? p.image ?? undefined,
       category: categorySlug ? t(`categories.${categorySlug}`) : undefined,
       categorySlug,

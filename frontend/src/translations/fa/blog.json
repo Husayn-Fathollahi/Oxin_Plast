@@ -5,7 +5,8 @@
   },
   "listing": {
     "title": "وبلاگ",
-    "readMore": "ادامه مطلب"
+    "readMore": "ادامه مطلب",
+    "empty": "هنوز مقاله‌ای منتشر نشده است."
   },
   "detail": {
     "publishedOn": "منتشر شده در",

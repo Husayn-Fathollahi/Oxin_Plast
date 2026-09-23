@@ -6,6 +6,7 @@ import { prisma } from '@/lib/prisma';
 const ArticleSchema = z.object({
   title: z.string().trim().min(1, 'Title is required').max(255),
   titleEn: z.string().trim().max(255).optional().or(z.literal('')),
+  titleAr: z.string().trim().max(255).optional().or(z.literal('')),
   slug: z
     .string()
     .trim()
@@ -14,8 +15,10 @@ const ArticleSchema = z.object({
     .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Slug must be lowercase-hyphenated'),
   excerpt: z.string().trim().min(1, 'Excerpt is required').max(500),
   excerptEn: z.string().trim().max(500).optional().or(z.literal('')),
+  excerptAr: z.string().trim().max(500).optional().or(z.literal('')),
   content: z.string().trim().min(1, 'Content is required'),
   contentEn: z.string().trim().optional().or(z.literal('')),
+  contentAr: z.string().trim().optional().or(z.literal('')),
   image: z.string().trim().optional().or(z.literal('')),
   published: z.boolean().optional().default(false),
 });
@@ -68,14 +71,17 @@ export async function POST(request: Request) {
   }
 
   try {
-    const { image, titleEn, excerptEn, contentEn, ...rest } = parsed.data;
+    const { image, titleEn, titleAr, excerptEn, excerptAr, contentEn, contentAr, ...rest } = parsed.data;
     const article = await prisma.article.create({
       data: {
         ...rest,
         image: image || null,
         titleEn: titleEn || null,
+        titleAr: titleAr || null,
         excerptEn: excerptEn || null,
+        excerptAr: excerptAr || null,
         contentEn: contentEn || null,
+        contentAr: contentAr || null,
       },
     });
     return NextResponse.json({ success: true, data: article }, { status: 201 });

@@ -40,11 +40,14 @@ export default async function EditArticlePage({ params }: EditArticlePageProps) 
         initial={{
           title: article.title,
           titleEn: article.titleEn ?? '',
+          titleAr: article.titleAr ?? '',
           slug: article.slug,
           excerpt: article.excerpt,
           excerptEn: article.excerptEn ?? '',
+          excerptAr: article.excerptAr ?? '',
           content: article.content,
           contentEn: article.contentEn ?? '',
+          contentAr: article.contentAr ?? '',
           image: article.image ?? '',
           published: article.published,
         }}

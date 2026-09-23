@@ -5,8 +5,8 @@ import { useTransition } from 'react';
 import { usePathname, useRouter } from '@/lib/i18n/navigation';
 
 /**
- * Language switcher showing EN | FA.
- * The active locale is highlighted; clicking the other locale navigates to it
+ * Language switcher showing FA | EN | AR.
+ * The active locale is highlighted; clicking another locale navigates to it
  * while preserving the current path.
  */
 export function LanguageSwitcher() {
@@ -22,6 +22,12 @@ export function LanguageSwitcher() {
     });
   }
 
+  const languages = [
+    { code: 'fa', label: 'FA' },
+    { code: 'en', label: 'EN' },
+    { code: 'ar', label: 'AR' },
+  ];
+
   return (
     <div
       aria-label="Language switcher"
@@ -32,32 +38,22 @@ export function LanguageSwitcher() {
         isPending ? 'opacity-50' : '',
       ].join(' ')}
     >
-      <button
-        onClick={() => switchTo('en')}
-        disabled={isPending}
-        aria-pressed={locale === 'en'}
-        className={[
-          'rounded-full px-3 py-1 text-xs font-bold transition-colors',
-          locale === 'en'
-            ? 'bg-brand-gradient text-white shadow-glow'
-            : 'text-ink-muted hover:text-ink',
-        ].join(' ')}
-      >
-        EN
-      </button>
-      <button
-        onClick={() => switchTo('fa')}
-        disabled={isPending}
-        aria-pressed={locale === 'fa'}
-        className={[
-          'rounded-full px-3 py-1 text-xs font-bold transition-colors',
-          locale === 'fa'
-            ? 'bg-brand-gradient text-white shadow-glow'
-            : 'text-ink-muted hover:text-ink',
-        ].join(' ')}
-      >
-        FA
-      </button>
+      {languages.map((lang) => (
+        <button
+          key={lang.code}
+          onClick={() => switchTo(lang.code)}
+          disabled={isPending}
+          aria-pressed={locale === lang.code}
+          className={[
+            'rounded-full px-2.5 py-1 text-xs font-bold transition-colors',
+            locale === lang.code
+              ? 'bg-brand-gradient text-white shadow-glow'
+              : 'text-ink-muted hover:text-ink',
+          ].join(' ')}
+        >
+          {lang.label}
+        </button>
+      ))}
     </div>
   );
 }

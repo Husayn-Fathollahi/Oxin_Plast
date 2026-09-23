@@ -25,12 +25,15 @@ export default function NewArticlePage({
 
   const [title, setTitle] = useState('');
   const [titleEn, setTitleEn] = useState('');
+  const [titleAr, setTitleAr] = useState('');
   const [slug, setSlug] = useState('');
   const [slugTouched, setSlugTouched] = useState(false);
   const [excerpt, setExcerpt] = useState('');
   const [excerptEn, setExcerptEn] = useState('');
+  const [excerptAr, setExcerptAr] = useState('');
   const [content, setContent] = useState('');
   const [contentEn, setContentEn] = useState('');
+  const [contentAr, setContentAr] = useState('');
   const [image, setImage] = useState('');
   const [published, setPublished] = useState(false);
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -50,10 +53,10 @@ export default function NewArticlePage({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          title, titleEn,
+          title, titleEn, titleAr,
           slug,
-          excerpt, excerptEn,
-          content, contentEn,
+          excerpt, excerptEn, excerptAr,
+          content, contentEn, contentAr,
           image: image.trim(),
           published,
         }),
@@ -170,6 +173,38 @@ export default function NewArticlePage({
             <textarea id="contentEn" rows={10} value={contentEn}
               onChange={(e) => setContentEn(e.target.value)}
               placeholder="Write your article in English here…"
+              className={`${inputCls} bg-white resize-y`} disabled={submitting} />
+          </div>
+        </div>
+
+        {/* ── Arabic Details ── */}
+        <div className="rounded-lg border border-green-100 bg-green-50 p-4 space-y-4">
+          <p className="text-sm font-semibold text-green-800">
+            🇸🇦 Arabic Details{' '}
+            <span className="font-normal text-green-500">(optional)</span>
+          </p>
+
+          <div>
+            <label htmlFor="titleAr" className="block text-sm font-medium text-gray-700 mb-1">Title (Arabic)</label>
+            <input id="titleAr" type="text" dir="rtl" value={titleAr}
+              onChange={(e) => setTitleAr(e.target.value)}
+              placeholder="عنوان المقالة بالعربية"
+              className={`${inputCls} bg-white`} disabled={submitting} />
+          </div>
+
+          <div>
+            <label htmlFor="excerptAr" className="block text-sm font-medium text-gray-700 mb-1">Excerpt (Arabic)</label>
+            <textarea id="excerptAr" rows={2} dir="rtl" value={excerptAr}
+              onChange={(e) => setExcerptAr(e.target.value)}
+              placeholder="ملخص قصير بالعربية..."
+              className={`${inputCls} bg-white resize-none`} disabled={submitting} />
+          </div>
+
+          <div>
+            <label htmlFor="contentAr" className="block text-sm font-medium text-gray-700 mb-1">Content (Arabic)</label>
+            <textarea id="contentAr" rows={10} dir="rtl" value={contentAr}
+              onChange={(e) => setContentAr(e.target.value)}
+              placeholder="اكتب المقالة بالعربية هنا..."
               className={`${inputCls} bg-white resize-y`} disabled={submitting} />
           </div>
         </div>

@@ -6,6 +6,7 @@ import { prisma } from '@/lib/prisma';
 const ProductSchema = z.object({
   name: z.string().trim().min(2, 'Name must be at least 2 characters').max(255),
   nameEn: z.string().trim().max(255).optional().or(z.literal('')),
+  nameAr: z.string().trim().max(255).optional().or(z.literal('')),
   slug: z
     .string()
     .trim()
@@ -14,8 +15,10 @@ const ProductSchema = z.object({
     .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Slug must be lowercase-hyphenated'),
   excerpt: z.string().trim().min(10, 'Excerpt must be at least 10 characters').max(500),
   excerptEn: z.string().trim().max(500).optional().or(z.literal('')),
+  excerptAr: z.string().trim().max(500).optional().or(z.literal('')),
   description: z.string().trim().min(20, 'Description must be at least 20 characters'),
   descriptionEn: z.string().trim().optional().or(z.literal('')),
+  descriptionAr: z.string().trim().optional().or(z.literal('')),
   image: z.string().trim().url('Image must be a valid URL').optional().or(z.literal('')),
   published: z.boolean().optional().default(false),
   isFeatured: z.boolean().optional().default(false),
@@ -70,7 +73,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: false, errors }, { status: 400 });
   }
 
-  const { image, nameEn, excerptEn, descriptionEn, specifications, ...rest } = parsed.data;
+  const { image, nameEn, nameAr, excerptEn, excerptAr, descriptionEn, descriptionAr, specifications, ...rest } = parsed.data;
 
   try {
     const product = await prisma.product.create({
@@ -78,8 +81,11 @@ export async function POST(request: Request) {
         ...rest,
         image: image || null,
         nameEn: nameEn || null,
+        nameAr: nameAr || null,
         excerptEn: excerptEn || null,
+        excerptAr: excerptAr || null,
         descriptionEn: descriptionEn || null,
+        descriptionAr: descriptionAr || null,
         specifications: specifications ?? undefined,
       },
     });

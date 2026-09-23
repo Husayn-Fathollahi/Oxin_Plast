@@ -31,11 +31,14 @@ export interface EditProductFormProps {
   initial: {
     name: string;
     nameEn: string;
+    nameAr: string;
     slug: string;
     excerpt: string;
     excerptEn: string;
+    excerptAr: string;
     description: string;
     descriptionEn: string;
+    descriptionAr: string;
     image: string;
     published: boolean;
     isFeatured: boolean;
@@ -51,11 +54,14 @@ export function EditProductForm({ id, locale, initial }: EditProductFormProps) {
 
   const [name, setName] = useState(initial.name);
   const [nameEn, setNameEn] = useState(initial.nameEn);
+  const [nameAr, setNameAr] = useState(initial.nameAr);
   const [slug, setSlug] = useState(initial.slug);
   const [excerpt, setExcerpt] = useState(initial.excerpt);
   const [excerptEn, setExcerptEn] = useState(initial.excerptEn);
+  const [excerptAr, setExcerptAr] = useState(initial.excerptAr);
   const [description, setDescription] = useState(initial.description);
   const [descriptionEn, setDescriptionEn] = useState(initial.descriptionEn);
+  const [descriptionAr, setDescriptionAr] = useState(initial.descriptionAr);
   const [image, setImage] = useState(initial.image);
   const [published, setPublished] = useState(initial.published);
   const [isFeatured, setIsFeatured] = useState(initial.isFeatured);
@@ -119,11 +125,14 @@ export function EditProductForm({ id, locale, initial }: EditProductFormProps) {
         body: JSON.stringify({
           name,
           nameEn,
+          nameAr,
           slug,
           excerpt,
           excerptEn,
+          excerptAr,
           description,
           descriptionEn,
+          descriptionAr,
           image: trimmedImage,
           published,
           isFeatured,
@@ -260,6 +269,44 @@ export function EditProductForm({ id, locale, initial }: EditProductFormProps) {
           <textarea id="descriptionEn" rows={6} value={descriptionEn}
             onChange={(e) => setDescriptionEn(e.target.value)}
             placeholder="Full English product description…"
+            className={textareaCls} disabled={submitting} />
+        </div>
+      </div>
+
+      {/* ── Arabic fields ── */}
+      <div className="rounded-lg border border-green-100 bg-green-50 p-4 space-y-4">
+        <p className="text-sm font-semibold text-green-800">
+          🇸🇦 Arabic Details{' '}
+          <span className="font-normal text-green-500">(optional)</span>
+        </p>
+
+        <div>
+          <label htmlFor="nameAr" className="block text-sm font-medium text-gray-700 mb-1">
+            Name (Arabic)
+          </label>
+          <input id="nameAr" type="text" dir="rtl" value={nameAr}
+            onChange={(e) => setNameAr(e.target.value)}
+            placeholder="اسم المنتج بالعربية"
+            className={inputCls} disabled={submitting} />
+        </div>
+
+        <div>
+          <label htmlFor="excerptAr" className="block text-sm font-medium text-gray-700 mb-1">
+            Excerpt (Arabic)
+          </label>
+          <textarea id="excerptAr" rows={2} dir="rtl" value={excerptAr}
+            onChange={(e) => setExcerptAr(e.target.value)}
+            placeholder="ملخص قصير بالعربية..."
+            className={`${textareaCls} resize-none`} disabled={submitting} />
+        </div>
+
+        <div>
+          <label htmlFor="descriptionAr" className="block text-sm font-medium text-gray-700 mb-1">
+            Description (Arabic)
+          </label>
+          <textarea id="descriptionAr" rows={6} dir="rtl" value={descriptionAr}
+            onChange={(e) => setDescriptionAr(e.target.value)}
+            placeholder="وصف المنتج الكامل بالعربية..."
             className={textareaCls} disabled={submitting} />
         </div>
       </div>

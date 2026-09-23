@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "listingTitle": "المدونة",
+    "listingDescription": "أحدث المقالات وأخبار صناعة البلاستيك"
+  },
+  "listing": {
+    "title": "المدونة",
+    "readMore": "اقرأ المزيد",
+    "empty": "لم يتم نشر أي مقالات حتى الآن."
+  },
+  "detail": {
+    "publishedOn": "نُشر في",
+    "tags": "الوسوم",
+    "relatedArticles": "مقالات ذات صلة"
+  }
+}

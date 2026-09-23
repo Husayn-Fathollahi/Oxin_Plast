@@ -12,11 +12,14 @@ export interface EditArticleFormProps {
   initial: {
     title: string;
     titleEn: string;
+    titleAr: string;
     slug: string;
     excerpt: string;
     excerptEn: string;
+    excerptAr: string;
     content: string;
     contentEn: string;
+    contentAr: string;
     image: string;
     published: boolean;
   };
@@ -27,11 +30,14 @@ export function EditArticleForm({ id, locale, initial }: EditArticleFormProps) {
 
   const [title, setTitle] = useState(initial.title);
   const [titleEn, setTitleEn] = useState(initial.titleEn);
+  const [titleAr, setTitleAr] = useState(initial.titleAr);
   const [slug, setSlug] = useState(initial.slug);
   const [excerpt, setExcerpt] = useState(initial.excerpt);
   const [excerptEn, setExcerptEn] = useState(initial.excerptEn);
+  const [excerptAr, setExcerptAr] = useState(initial.excerptAr);
   const [content, setContent] = useState(initial.content);
   const [contentEn, setContentEn] = useState(initial.contentEn);
+  const [contentAr, setContentAr] = useState(initial.contentAr);
   const [image, setImage] = useState(initial.image);
   const [published, setPublished] = useState(initial.published);
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -46,10 +52,10 @@ export function EditArticleForm({ id, locale, initial }: EditArticleFormProps) {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          title, titleEn,
+          title, titleEn, titleAr,
           slug,
-          excerpt, excerptEn,
-          content, contentEn,
+          excerpt, excerptEn, excerptAr,
+          content, contentEn, contentAr,
           image: image.trim(),
           published,
         }),
@@ -144,6 +150,38 @@ export function EditArticleForm({ id, locale, initial }: EditArticleFormProps) {
           <label htmlFor="contentEn" className="block text-sm font-medium text-gray-700 mb-1">Content (English)</label>
           <textarea id="contentEn" rows={10} value={contentEn} onChange={(e) => setContentEn(e.target.value)}
             placeholder="Full article in English…" className={`${inputCls} resize-y`} disabled={submitting} />
+        </div>
+      </div>
+
+      {/* ── Arabic Details ── */}
+      <div className="rounded-lg border border-green-100 bg-green-50 p-4 space-y-4">
+        <p className="text-sm font-semibold text-green-800">
+          🇸🇦 Arabic Details{' '}
+          <span className="font-normal text-green-500">(optional)</span>
+        </p>
+
+        <div>
+          <label htmlFor="titleAr" className="block text-sm font-medium text-gray-700 mb-1">Title (Arabic)</label>
+          <input id="titleAr" type="text" dir="rtl" value={titleAr}
+            onChange={(e) => setTitleAr(e.target.value)}
+            placeholder="عنوان المقالة بالعربية"
+            className={inputCls} disabled={submitting} />
+        </div>
+
+        <div>
+          <label htmlFor="excerptAr" className="block text-sm font-medium text-gray-700 mb-1">Excerpt (Arabic)</label>
+          <textarea id="excerptAr" rows={2} dir="rtl" value={excerptAr}
+            onChange={(e) => setExcerptAr(e.target.value)}
+            placeholder="ملخص قصير بالعربية..."
+            className={`${inputCls} resize-none`} disabled={submitting} />
+        </div>
+
+        <div>
+          <label htmlFor="contentAr" className="block text-sm font-medium text-gray-700 mb-1">Content (Arabic)</label>
+          <textarea id="contentAr" rows={10} dir="rtl" value={contentAr}
+            onChange={(e) => setContentAr(e.target.value)}
+            placeholder="اكتب المقالة بالعربية هنا..."
+            className={`${inputCls} resize-y`} disabled={submitting} />
         </div>
       </div>
 

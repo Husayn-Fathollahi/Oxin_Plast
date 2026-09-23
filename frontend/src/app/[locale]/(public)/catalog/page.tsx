@@ -16,6 +16,8 @@ interface CatalogPageProps {
 
 export async function generateMetadata({ params }: CatalogPageProps): Promise<Metadata> {
   const { locale } = await params;
+  const isEn = locale === 'en';
+  const isAr = locale === 'ar';
   const t = await getTranslations({ locale, namespace: 'catalog' });
   const title = t('meta.title');
   const description = t('meta.description');
@@ -27,7 +29,7 @@ export async function generateMetadata({ params }: CatalogPageProps): Promise<Me
       ...seoConfig.defaultOpenGraph,
       title,
       description,
-      locale: locale === 'en' ? 'en_US' : 'fa_IR',
+      locale: isAr ? 'ar_SA' : isEn ? 'en_US' : 'fa_IR',
     },
     twitter: { ...seoConfig.twitter, title, description },
   };
@@ -36,12 +38,19 @@ export async function generateMetadata({ params }: CatalogPageProps): Promise<Me
 export default async function CatalogPage({ params }: CatalogPageProps) {
   const { locale } = await params;
   const isEn = locale === 'en';
-  const t = await getTranslations('catalog');
+  const isAr = locale === 'ar';
+  const t = await getTranslations({ locale, namespace: 'catalog' });
 
   const highlights = [
-    { icon: Layers,      t: isEn ? 'Full Product Range' : 'طیف کامل محصولات', d: isEn ? 'Every line, size and variant in one place.' : 'تمام خطوط، اندازه‌ها و انواع در یک فایل.' },
-    { icon: Ruler,       t: isEn ? 'Technical Specs'    : 'مشخصات فنی',        d: isEn ? 'Dimensions, capacities and material grades.' : 'ابعاد، ظرفیت و گرید مواد اولیه.' },
-    { icon: ShieldCheck, t: isEn ? 'Certifications'     : 'گواهینامه‌ها',      d: isEn ? 'ISO, ISIRI and UN approval details.' : 'جزئیات تأییدیه ISO، ISIRI و UN.' },
+    { icon: Layers,
+      t: isAr ? 'نطاق كامل من المنتجات' : isEn ? 'Full Product Range' : 'طیف کامل محصولات',
+      d: isAr ? 'كل خط وحجم ونوع في مكان واحد.'                : isEn ? 'Every line, size and variant in one place.'       : 'تمام خطوط، اندازه‌ها و انواع در یک فایل.' },
+    { icon: Ruler,
+      t: isAr ? 'المواصفات الفنية'       : isEn ? 'Technical Specs'    : 'مشخصات فنی',
+      d: isAr ? 'الأبعاد والسعات ودرجات المواد.'               : isEn ? 'Dimensions, capacities and material grades.'    : 'ابعاد، ظرفیت و گرید مواد اولیه.' },
+    { icon: ShieldCheck,
+      t: isAr ? 'الشهادات'               : isEn ? 'Certifications'     : 'گواهینامه‌ها',
+      d: isAr ? 'تفاصيل موافقة ISO وISIRI والأمم المتحدة.'     : isEn ? 'ISO, ISIRI and UN approval details.'             : 'جزئیات تأییدیه ISO، ISIRI و UN.' },
   ];
 
   return (
@@ -59,7 +68,7 @@ export default async function CatalogPage({ params }: CatalogPageProps) {
             <div className="lg:col-span-6">
               <div className="chip animate-fade-up animate-fill-both">
                 <BookOpen className="h-3.5 w-3.5" />
-                {isEn ? 'Product Catalog 2026' : 'کاتالوگ محصولات ۱۴۰۵'}
+                {isAr ? 'كاتالوج المنتجات 2026' : isEn ? 'Product Catalog 2026' : 'کاتالوگ محصولات ۱۴۰۵'}
               </div>
               <h1 className="display text-display mt-6 animate-fade-up animate-fill-both animate-delay-100">
                 {t('title')}
@@ -74,7 +83,7 @@ export default async function CatalogPage({ params }: CatalogPageProps) {
                   {t('downloadButton')}
                 </a>
                 <Link href="/products" className="btn-ghost">
-                  {isEn ? 'Browse Online' : 'مشاهده آنلاین'}
+                  {isAr ? 'تصفح عبر الإنترنت' : isEn ? 'Browse Online' : 'مشاهده آنلاین'}
                   <ArrowRight className="h-4 w-4 flip-x" />
                 </Link>
               </div>
@@ -122,9 +131,10 @@ export default async function CatalogPage({ params }: CatalogPageProps) {
       {/* What's inside */}
       <section className="container mx-auto py-20">
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="eyebrow justify-center"><span className="dash" /> {isEn ? "What's Inside" : 'محتوای کاتالوگ'} <span className="dash" /></span>
+          <span className="eyebrow justify-center"><span className="dash" /> {isAr ? 'محتوى الكاتالوج' : isEn ? "What's Inside" : 'محتوای کاتالوگ'} <span className="dash" /></span>
           <h2 className="display text-display-sm mt-4">
-            {isEn ? <>Everything you need to <span className="text-gradient">decide</span></>
+            {isAr ? <>كل ما تحتاجه <span className="text-gradient">لاتخاذ قرارك</span></>
+                  : isEn ? <>Everything you need to <span className="text-gradient">decide</span></>
                   : <>هر آنچه برای <span className="text-gradient">تصمیم‌گیری</span> لازم دارید</>}
           </h2>
         </div>

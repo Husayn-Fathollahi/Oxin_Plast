@@ -20,15 +20,21 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
   const { slug, locale } = await params;
   const product = await prisma.product.findUnique({
     where: { slug },
-    select: { name: true, nameEn: true, excerpt: true, excerptEn: true, image: true },
+    select: { name: true, nameEn: true, nameAr: true, excerpt: true, excerptEn: true, excerptAr: true, image: true },
   });
   if (!product) return {};
   const isEn = locale === 'en';
-  const title = isEn ? product.nameEn || product.name : product.name;
-  const description = isEn ? product.excerptEn || product.excerpt : product.excerpt;
+  const isAr = locale === 'ar';
+  const title = isAr
+    ? (product.nameAr?.trim()   || product.name || product.nameEn || '')
+    : isEn ? (product.nameEn?.trim() || product.name) : product.name;
+  const description = isAr
+    ? (product.excerptAr?.trim()   || product.excerpt || product.excerptEn || '')
+    : isEn ? (product.excerptEn?.trim() || product.excerpt) : product.excerpt;
   const imageUrl = product.image
     ? product.image.startsWith('http') ? product.image : `${siteConfig.siteUrl}${product.image}`
     : undefined;
+  const ogLocale = isEn ? 'en_US' : isAr ? 'ar_SA' : 'fa_IR';
   return {
     title,
     description,
@@ -38,7 +44,7 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
       type: 'website',
       title,
       description,
-      locale: locale === 'en' ? 'en_US' : 'fa_IR',
+      locale: ogLocale,
       ...(imageUrl ? { images: [{ url: imageUrl }] } : {}),
     },
     twitter: {
@@ -71,13 +77,20 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   if (!product) notFound();
 
   const isEn = locale === 'en';
-  const displayName        = isEn ? product.nameEn        || product.name        : product.name;
-  const displayExcerpt     = isEn ? product.excerptEn     || product.excerpt     : product.excerpt;
-  const displayDescription = isEn ? product.descriptionEn || product.description : product.description;
+  const isAr = locale === 'ar';
+  const displayName = isAr
+    ? (product.nameAr?.trim()        || product.name || product.nameEn || '')
+    : isEn ? (product.nameEn?.trim() || product.name) : product.name;
+  const displayExcerpt = isAr
+    ? (product.excerptAr?.trim()        || product.excerpt || product.excerptEn || '')
+    : isEn ? (product.excerptEn?.trim() || product.excerpt) : product.excerpt;
+  const displayDescription = isAr
+    ? (product.descriptionAr?.trim()        || product.description || product.descriptionEn || '')
+    : isEn ? (product.descriptionEn?.trim() || product.description) : product.description;
 
   // Resolve absolute image URL for JSON-LD structured data
   const primaryImageUrl =
-    product.images.find((i) => i.isPrimary)?.url ??
+    product.images.find((i: any) => i.isPrimary)?.url ??
     product.images[0]?.url ??
     product.image ??
     undefined;
@@ -88,10 +101,14 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     : undefined;
 
   // Map related products to card props
-  const relatedProducts = relatedRaw.map((p) => ({
-    name:             isEn ? p.nameEn    || p.name    : p.name,
+  const relatedProducts = relatedRaw.map((p: any) => ({
+    name: isAr
+      ? (p.nameAr?.trim()    || p.name || p.nameEn || '')
+      : isEn ? (p.nameEn?.trim() || p.name) : p.name,
     slug:             p.slug,
-    shortDescription: isEn ? p.excerptEn || p.excerpt : p.excerpt,
+    shortDescription: isAr
+      ? (p.excerptAr?.trim() || p.excerpt || p.excerptEn || '')
+      : isEn ? (p.excerptEn?.trim() || p.excerpt) : p.excerpt,
     imageUrl:         p.images[0]?.url ?? p.image ?? undefined,
   }));
 
@@ -230,7 +247,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               {t('detail.relatedProducts')}
             </h2>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {relatedProducts.map((p) => (
+              {relatedProducts.map((p:any) => (
                 <ProductCard key={p.slug} {...p} />
               ))}
             </div>

@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
       ...seoConfig.defaultOpenGraph,
       title,
       description,
-      locale: locale === 'en' ? 'en_US' : 'fa_IR',
+      locale: locale === 'ar' ? 'ar_SA' : locale === 'en' ? 'en_US' : 'fa_IR',
     },
     twitter: {
       ...seoConfig.twitter,
@@ -62,17 +62,22 @@ export default async function ProductCategoryPage({ params }: CategoryPageProps)
   });
 
   const isEn = locale === 'en';
+  const isAr = locale === 'ar';
   const label = t(`categories.${category.slug}`);
 
   // Keep only products whose auto-detected category matches this page.
   const cards = products
-    .filter((p) => categorizeProduct(p.name, p.nameEn, p.slug) === category.slug)
-    .map((p) => {
-      const primaryImage = p.images.find((img) => img.isPrimary) ?? p.images[0] ?? null;
+    .filter((p: any) => categorizeProduct(p.name, p.nameEn, p.slug) === category.slug)
+    .map((p:any) => {
+      const primaryImage = p.images.find((img: any) => img.isPrimary) ?? p.images[0] ?? null;
       return {
-        name: isEn ? p.nameEn || p.name : p.name,
+        name: isAr
+          ? (p.nameAr?.trim()    || p.name || p.nameEn || '')
+          : isEn ? (p.nameEn?.trim() || p.name) : p.name,
         slug: p.slug,
-        shortDescription: isEn ? p.excerptEn || p.excerpt : p.excerpt,
+        shortDescription: isAr
+          ? (p.excerptAr?.trim() || p.excerpt || p.excerptEn || '')
+          : isEn ? (p.excerptEn?.trim() || p.excerpt) : p.excerpt,
         imageUrl: primaryImage?.url ?? p.image ?? undefined,
         category: label,
       };

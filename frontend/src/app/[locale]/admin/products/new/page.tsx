@@ -40,12 +40,15 @@ export default function NewProductPage({
 
   const [name, setName] = useState('');
   const [nameEn, setNameEn] = useState('');
+  const [nameAr, setNameAr] = useState('');
   const [slug, setSlug] = useState('');
   const [slugTouched, setSlugTouched] = useState(false);
   const [excerpt, setExcerpt] = useState('');
   const [excerptEn, setExcerptEn] = useState('');
+  const [excerptAr, setExcerptAr] = useState('');
   const [description, setDescription] = useState('');
   const [descriptionEn, setDescriptionEn] = useState('');
+  const [descriptionAr, setDescriptionAr] = useState('');
   const [image, setImage] = useState('');
   const [published, setPublished] = useState(false);
   const [isFeatured, setIsFeatured] = useState(false);
@@ -127,11 +130,14 @@ export default function NewProductPage({
         body: JSON.stringify({
           name,
           nameEn,
+          nameAr,
           slug,
           excerpt,
           excerptEn,
+          excerptAr,
           description,
           descriptionEn,
+          descriptionAr,
           image: legacyImage,
           published,
           isFeatured,
@@ -338,6 +344,65 @@ export default function NewProductPage({
               disabled={submitting}
             />
             {errors.descriptionEn && <p className="mt-1 text-xs text-red-600">{errors.descriptionEn}</p>}
+          </div>
+        </div>
+
+        {/* ── Arabic Details ─────────────────────────────────────────────── */}
+        <div className="rounded-lg border border-green-100 bg-green-50 p-4 space-y-4">
+          <p className="text-sm font-semibold text-green-800">
+            🇸🇦 Arabic Details{' '}
+            <span className="font-normal text-green-500">(optional)</span>
+          </p>
+
+          {/* Name AR */}
+          <div>
+            <label htmlFor="nameAr" className="block text-sm font-medium text-gray-700 mb-1">
+              Name (Arabic)
+            </label>
+            <input
+              id="nameAr"
+              type="text"
+              dir="rtl"
+              value={nameAr}
+              onChange={(e) => setNameAr(e.target.value)}
+              placeholder="اسم المنتج بالعربية"
+              className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm placeholder:text-gray-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500 disabled:opacity-50"
+              disabled={submitting}
+            />
+          </div>
+
+          {/* Excerpt AR */}
+          <div>
+            <label htmlFor="excerptAr" className="block text-sm font-medium text-gray-700 mb-1">
+              Excerpt (Arabic)
+            </label>
+            <textarea
+              id="excerptAr"
+              rows={2}
+              dir="rtl"
+              value={excerptAr}
+              onChange={(e) => setExcerptAr(e.target.value)}
+              placeholder="ملخص قصير بالعربية..."
+              className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm placeholder:text-gray-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500 disabled:opacity-50 resize-none"
+              disabled={submitting}
+            />
+          </div>
+
+          {/* Description AR */}
+          <div>
+            <label htmlFor="descriptionAr" className="block text-sm font-medium text-gray-700 mb-1">
+              Description (Arabic)
+            </label>
+            <textarea
+              id="descriptionAr"
+              rows={6}
+              dir="rtl"
+              value={descriptionAr}
+              onChange={(e) => setDescriptionAr(e.target.value)}
+              placeholder="وصف المنتج الكامل بالعربية..."
+              className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm placeholder:text-gray-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500 disabled:opacity-50 resize-y"
+              disabled={submitting}
+            />
           </div>
         </div>
 

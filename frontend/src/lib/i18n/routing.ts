@@ -2,8 +2,10 @@
 import { defineRouting } from 'next-intl/routing';
 
 export const routing = defineRouting({
-  locales: ['en', 'fa'],
+  locales: ['fa', 'en', 'ar'],
   defaultLocale: 'fa',
-  localePrefix: 'always' // یعنی همیشه /fa و /en توی URL باشه
+  localeDetection: false,
+  localePrefix: 'always'
 });
+
 

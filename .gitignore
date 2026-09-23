@@ -49,3 +49,10 @@ logs/
 
 # ─── Misc ────────────────────────────────────────────────────────────────────
 *.tsbuildinfo
+
+*.db
+*.db*
+*.bak
+*-backup
+*.tar.gz
+frontend/public/uploads/

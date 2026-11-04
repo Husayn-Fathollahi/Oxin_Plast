@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "listingTitle": "المنتجات",
+    "listingDescription": "استعرض مجموعتنا الكاملة من المنتجات البلاستيكية الصناعية"
+  },
+  "listing": {
+    "title": "منتجاتنا",
+    "filterLabel": "تصفية حسب الفئة",
+    "empty": "لا توجد منتجات في هذه الفئة"
+  },
+  "categories": {
+    "all": "جميع المنتجات",
+    "kitchenware": "أدوات المطبخ والضيافة",
+    "cooling-storage": "مبردات ومنتجات التبريد",
+    "industrial-gallons": "جالونات وخزانات صناعية",
+    "bulk-barrels": "براميل البولي إيثيلين",
+    "home-accessories": "مستلزمات النظافة والملحقات"
+  },
+  "detail": {
+    "specs": "المواصفات الفنية",
+    "specLabel": "المعيار",
+    "valueLabel": "القيمة",
+    "downloadCatalog": "تحميل الكاتالوج PDF",
+    "relatedProducts": "منتجات ذات صلة",
+    "description": "الوصف",
+    "requestQuote": "طلب عرض سعر",
+    "contactSales": "التواصل مع فريق المبيعات",
+    "whatsapp": "المحادثة عبر واتساب"
+  }
+}

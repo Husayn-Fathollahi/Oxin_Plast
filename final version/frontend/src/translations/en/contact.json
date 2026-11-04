@@ -1,0 +1,24 @@
+{
+  "meta": { "title": "Contact Salman Plastic", "description": "Contact Salman Plastic sales for wholesale quotations and commercial enquiries." },
+  "eyebrow": "Sales and Factory Enquiries",
+  "title": "Contact the Factory and Wholesale Sales Team",
+  "subtitle": "Speak with Salman Plastic sales about product specifications, production volumes, and commercial cooperation.",
+  "sales": { "title": "Sales and Commercial Office", "description": "For wholesale orders, price quotations, and business enquiries." },
+  "factory": { "title": "Factory and Production", "description": "Dedicated manufacturing of Salman Plastic polymer products and components.", "note": "Call the sales line to coordinate a factory visit or request the detailed factory address." },
+  "info": { "title": "Contact Details", "phone": "Direct sales line", "email": "Corporate email", "address": "Factory location", "workingHours": "Business hours", "workingHoursValue": "Sat – Wed, 8 AM to 5 PM" },
+  "promise": { "title": "Response within one business day", "body": "Our sales team reviews submitted enquiries. For urgent coordination, call the dedicated sales line.", "cta": "Call Sales" },
+  "form": {
+    "kicker": "For customers and trade partners",
+    "sectionTitle": "Wholesale Enquiry and Partnership Request",
+    "sectionSubtitle": "Share your contact details, product category, and estimated volume so our sales team can review your request.",
+    "name": "Full name", "namePlaceholder": "Enter your full name",
+    "email": "Email (optional)", "emailPlaceholder": "name@company.com",
+    "phone": "Phone number", "phonePlaceholder": "+98 912 123 4567",
+    "subject": "Subject", "subjectPlaceholder": "Message subject",
+    "productType": "Product or business category", "productTypePlaceholder": "Select a category",
+    "productTypes": { "pedalBins": "Industrial and pedal bins", "picnicBaskets": "Picnic and multipurpose baskets", "polymerContainers": "Polymer containers and products", "customWholesale": "Custom manufacturing or wholesale", "other": "Other" },
+    "message": "Message and estimated volume", "messagePlaceholder": "Tell us the product, estimated quantity, colour, or required specifications...",
+    "submit": "Send enquiry to sales", "sending": "Sending...", "successTitle": "Enquiry received", "successMessage": "Thank you for contacting us. Our sales team will review your request.", "sendAnother": "Submit another enquiry", "errorMessage": "The enquiry could not be sent. Please try again."
+  },
+  "validation": { "nameRequired": "Full name is required", "emailInvalid": "Enter a valid email address", "phoneRequired": "Phone number is required", "productTypeRequired": "Select a product or business category", "messageRequired": "Enter a message or estimated volume" }
+}

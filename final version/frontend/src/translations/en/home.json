@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "title": "Salman Plastic — Pedal Bins & Picnic Baskets Manufacturer",
+    "description": "Manufacturer of pedal bins and picnic baskets using virgin PP Food Grade material"
+  },
+  "hero": {
+    "badge": "Nearly Half a Century of Polymer Industry Expertise",
+    "title": "A New Standard in Industrial Plastic Manufacturing",
+    "description": "Direct manufacturing of industrial bins, baskets, and high-grade polymer containers with certified food-grade materials and high impact resistance for bulk supply.",
+    "cta_primary": "View Product Catalog",
+    "cta_secondary": "Wholesale Inquiry",
+    "trust_1": "100% Food-Grade Polypropylene (PP)",
+    "trust_2": "High Volume & Ex-Factory Fast Delivery",
+    "trust_3": "Export-Ready Palletized Packaging",
+    "tab_bin": "Soft-Close Pedal Bin",
+    "tab_basket": "4-Lock Picnic Basket",
+    "spec_dims": "Dimensions",
+    "spec_capacity": "Capacity",
+    "spec_packing": "Packing",
+    "bin_dim": "18 × 28 × 48 cm",
+    "bin_cap": "12 Litres",
+    "bin_pack": "6 pcs / carton",
+    "basket_dim": "30 × 45 × 25 cm",
+    "basket_cap": "20 Litres",
+    "basket_pack": "4 pcs / carton",
+    "feat1": "Reinforced pedal — rated 100,000 presses",
+    "feat2": "Silent soft-close lid mechanism",
+    "feat3": "Antibacterial food-grade PP body",
+    "basket_feat1": "4 engineered locking clasps",
+    "basket_feat2": "Ergonomic reinforced handle",
+    "basket_feat3": "UV & impact resistant",
+    "metric1_label": "Daily Production Capacity",
+    "metric1_value": "+5,000 units",
+    "metric2_label": "Raw Material Grade",
+    "metric2_value": "Food-Grade PP",
+    "metric3_label": "Wholesale Lead Time",
+    "metric3_value": "72 Hours",
+    "card1_title": "Household, Office & Hygienic Pedal Bins",
+    "card1_spec1": "Heavy-Duty Metal Pedal",
+    "card1_spec2": "Soft-Close Lid",
+    "card1_spec3": "Multiple Sizes",
+    "card2_title": "Multi-Purpose Picnic & Travel Baskets",
+    "card2_spec1": "Engineered Locking Clasps",
+    "card2_spec2": "Ergonomic Handle",
+    "card2_spec3": "UV & Impact Resistant",
+    "headline": "Salman Plastic",
+    "subheadline": "Pedal bins and picnic baskets in PP",
+    "cta": "View Products",
+    "badge_floating": "Salman Plastic Pedal Bin",
+    "video_loading": "Loading"
+  },
+  "featuredProducts": {
+    "title": "Featured Products"
+  },
+  "whyUs": {
+    "title": "Why Choose Us?"
+  },
+  "latestBlog": {
+    "title": "Latest Articles"
+  },
+  "features": {
+    "title": "Why Choose Us?",
+    "item1": { "title": "High Durability", "desc": "Made from premium-grade raw materials for a long service life" },
+    "item2": { "title": "Quality Certified", "desc": "All products comply with national ISIRI and international ISO standards" },
+    "item3": { "title": "Fast Delivery", "desc": "Nationwide shipping via our dedicated fleet in the shortest possible time" }
+  },
+  "products": {
+    "title": "Our Products",
+    "item1": { "title": "PVC Pipes", "category": "Pipes & Fittings" },
+    "item2": { "title": "Industrial Fittings", "category": "Fittings" },
+    "item3": { "title": "Plastic Products", "category": "General Products" },
+    "viewAll": "View All Products"
+  }
+}

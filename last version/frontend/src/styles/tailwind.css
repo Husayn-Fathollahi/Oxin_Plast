@@ -1,0 +1,21 @@
+/*
+ * tailwind.css
+ * Entry point imported by globals.css.
+ * Place any custom Tailwind component classes here using @layer.
+ */
+@layer components {
+  /* Reusable container style */
+  .site-container {
+    @apply container mx-auto px-4;
+  }
+
+  /* Section spacing */
+  .section {
+    @apply py-12 md:py-20;
+  }
+
+  /* Focus ring — consistent across interactive elements */
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2;
+  }
+}

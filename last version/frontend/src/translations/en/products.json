@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "listingTitle": "Products",
+    "listingDescription": "Browse our full range of industrial plastic products"
+  },
+  "listing": {
+    "title": "Our Products",
+    "filterLabel": "Filter by category",
+    "empty": "No products found in this category"
+  },
+  "categories": {
+    "all": "All Products",
+    "kitchenware": "Kitchen & Dining",
+    "cooling-storage": "Cooling & Insulated",
+    "industrial-gallons": "Industrial Gallons",
+    "bulk-barrels": "Bulk Barrels",
+    "home-accessories": "Home & Accessories"
+  },
+  "detail": {
+    "specs": "Technical Specifications",
+    "specLabel": "Specification",
+    "valueLabel": "Value",
+    "downloadCatalog": "Download PDF Catalog",
+    "relatedProducts": "Related Products",
+    "description": "Description",
+    "requestQuote": "Request a Quote",
+    "contactSales": "Contact Sales",
+    "whatsapp": "Chat on WhatsApp"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "nav": {
+    "home": "الرئيسية",
+    "products": "المنتجات",
+    "blog": "المدونة",
+    "catalog": "الكاتالوج",
+    "about": "من نحن",
+    "contact": "تواصل مع المبيعات",
+    "quote": "استفسار الجملة",
+    "pedalBins": "سلال الدواسة",
+    "picnicBaskets": "سلال النزهة",
+    "qualitySpecs": "معايير الجودة",
+    "aboutFactory": "عن المصنع"
+  },
+  "about": {
+    "meta": {
+      "title": "من نحن",
+      "description": "تعرف على فريق وتاريخ أكسين بلاست — مصنّع المنتجات البلاستيكية الصناعية منذ عام 1990."
+    }
+  },
+  "langSwitch": {
+    "current": "AR",
+    "switchTo": "EN",
+    "label": "تغيير اللغة إلى الإنجليزية"
+  },
+  "footer": {
+    "rights": "جميع الحقوق محفوظة",
+    "desc": "مصنّع سلال الدواسة وسلال النزهة — PP بكر صحّي، تسليم من المصنع.",
+    "quickLinks": "روابط سريعة",
+    "productCategories": "فئات المنتجات",
+    "cat_pedalHome": "سلال دواسة للمنزل والمكتب",
+    "cat_pedalHygiene": "سلال دواسة صحية",
+    "cat_picnic": "سلال نزهة بأربعة أقفال",
+    "cat_custom": "منتجات مخصصة",
+    "contactInfo": "معلومات الاتصال",
+    "workingHoursValue": "السبت – الخميس، ٨ ص – ٥ م",
+    "tagline": "Designed for industry."
+  },
+  "contact": {
+    "title": "تواصل معنا",
+    "subtitle": "سيتم الرد على رسالتك في أقرب وقت ممكن",
+    "name": "الاسم الكامل",
+    "email": "البريد الإلكتروني",
+    "message": "رسالتك",
+    "submit": "إرسال الرسالة",
+    "success": "تم إرسال رسالتك بنجاح ✔️",
+    "successSub": "سيتواصل معك فريقنا في غضون 24 ساعة.",
+    "namePlaceholder": "مثال: أحمد محمد",
+    "emailPlaceholder": "example@email.com",
+    "messagePlaceholder": "اكتب رسالتك هنا..."
+  },
+  "loading": "جارٍ التحميل...",
+  "error": "حدث خطأ ما",
+  "notFound": {
+    "title": "الصفحة غير موجودة",
+    "description": "الصفحة التي تبحث عنها غير موجودة أو تم نقلها.",
+    "backHome": "العودة إلى الرئيسية"
+  }
+}

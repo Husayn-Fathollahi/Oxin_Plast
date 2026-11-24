@@ -6,7 +6,9 @@
   "listing": {
     "title": "Our Products",
     "filterLabel": "Filter by category",
-    "empty": "No products found in this category"
+    "empty": "No products found in this category",
+    "familyEmpty": "Products in this category have not been added yet",
+    "viewAll": "View all products"
   },
   "categories": {
     "all": "All Products",
@@ -14,7 +16,9 @@
     "cooling-storage": "Cooling & Insulated",
     "industrial-gallons": "Industrial Gallons",
     "bulk-barrels": "Bulk Barrels",
-    "home-accessories": "Home & Accessories"
+    "home-accessories": "Home & Accessories",
+    "pedal-bins": "Pedal Bins",
+    "picnic-baskets": "4-Lock Picnic Baskets"
   },
   "detail": {
     "specs": "Technical Specifications",

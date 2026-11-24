@@ -49,10 +49,11 @@ model Product {
   description   String
   descriptionEn String?
   descriptionAr String?
-  image         String?
+  image          String?
   specifications Json?
-  published     Boolean        @default(false)
-  isFeatured    Boolean        @default(false)
+  categoryFamily String?
+  published      Boolean        @default(false)
+  isFeatured     Boolean        @default(false)
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   images        ProductImage[]

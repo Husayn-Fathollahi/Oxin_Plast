@@ -8,7 +8,7 @@ import {
   type ExplorerCard,
   type ExplorerCategory,
 } from '@/components/products/products-explorer';
-import { CATEGORY_ORDER, categorizeProduct } from '@/constants/product-categories';
+import { categorizeProduct } from '@/constants/product-categories';
 import { PageHero } from '@/components/ui/PageHero';
 
 interface ProductsPageProps {
@@ -59,6 +59,8 @@ export default async function ProductsPage({ params }: ProductsPageProps) {
     const primaryImage =
       p.images.find((img) => img.isPrimary) ?? p.images[0] ?? null;
     const categorySlug = categorizeProduct(p.name, p.nameEn, p.slug);
+    const categoryFamily = p.categoryFamily ?? null;
+    const familyLabel = categoryFamily ? t(`categories.${categoryFamily}`) : undefined;
     return {
       name: isAr
         ? (p.nameAr?.trim() || p.name || p.nameEn || '')
@@ -68,12 +70,14 @@ export default async function ProductsPage({ params }: ProductsPageProps) {
         ? (p.excerptAr?.trim() || p.excerpt || p.excerptEn || '')
         : isEn ? (p.excerptEn?.trim() || p.excerpt) : p.excerpt,
       imageUrl: primaryImage?.url ?? p.image ?? undefined,
-      category: categorySlug ? t(`categories.${categorySlug}`) : undefined,
+      category: familyLabel,
       categorySlug,
+      categoryFamily,
     };
   });
 
-  const categories: ExplorerCategory[] = CATEGORY_ORDER.map((slug) => ({
+  const FAMILY_TABS = ['pedal-bins', 'picnic-baskets'] as const;
+  const categories: ExplorerCategory[] = FAMILY_TABS.map((slug) => ({
     slug,
     label: t(`categories.${slug}`),
   }));

@@ -495,6 +495,7 @@ export interface EditProductFormProps {
     descriptionEn: string;
     descriptionAr: string;
     image: string;
+    categoryFamily: string;
     published: boolean;
     isFeatured: boolean;
     images: ProductImageData[];
@@ -518,6 +519,7 @@ export function EditProductForm({ id, locale, initial }: EditProductFormProps) {
   const [descriptionEn, setDescriptionEn] = useState(initial.descriptionEn);
   const [descriptionAr, setDescriptionAr] = useState(initial.descriptionAr);
   const [image, setImage] = useState(initial.image);
+  const [categoryFamily, setCategoryFamily] = useState(initial.categoryFamily);
   const [published, setPublished] = useState(initial.published);
   const [isFeatured, setIsFeatured] = useState(initial.isFeatured);
   const [existingImages] = useState<ProductImageData[]>(initial.images);
@@ -594,6 +596,7 @@ export function EditProductForm({ id, locale, initial }: EditProductFormProps) {
           descriptionEn,
           descriptionAr,
           image: trimmedImage,
+          categoryFamily,
           published,
           isFeatured,
           specifications: rowsToSpecs(specRows),
@@ -674,6 +677,24 @@ export function EditProductForm({ id, locale, initial }: EditProductFormProps) {
           className={`${inputCls} font-mono`} disabled={submitting} />
         <p className="mt-1 text-xs text-gray-400">Lowercase and hyphenated.</p>
         {errors.slug && <p className="mt-1 text-xs text-red-600">{errors.slug}</p>}
+      </div>
+
+      {/* ── Product Family ── */}
+      <div>
+        <label htmlFor="categoryFamily" className="block text-sm font-medium text-gray-700 mb-1">
+          خانوادهٔ محصول / Product Family
+        </label>
+        <select
+          id="categoryFamily"
+          value={categoryFamily}
+          onChange={(e) => setCategoryFamily(e.target.value)}
+          disabled={submitting}
+          className={inputCls}
+        >
+          <option value="">— بدون خانواده / No Family —</option>
+          <option value="pedal-bins">سطل‌های پدالی / Pedal Bins</option>
+          <option value="picnic-baskets">سبدهای پیک‌نیک / Picnic Baskets</option>
+        </select>
       </div>
 
       <div>

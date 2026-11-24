@@ -53,6 +53,7 @@ export default async function EditProductPage({ params }: EditProductPageProps) 
           descriptionEn: product.descriptionEn ?? '',
           descriptionAr: product.descriptionAr ?? '',
           image: product.image ?? '',
+          categoryFamily: product.categoryFamily ?? '',
           published: product.published,
           isFeatured: product.isFeatured,
           specifications: (product.specifications ?? null) as Record<string, string> | null,

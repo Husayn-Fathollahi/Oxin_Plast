@@ -8,7 +8,11 @@ import { prisma } from '@/lib/prisma';
 import { ProductGrid } from '@/components/products/product-grid';
 import { Breadcrumbs } from '@/components/common/breadcrumbs';
 import { Link } from '@/lib/i18n/navigation';
-import { categorizeProduct, getCategory } from '@/constants/product-categories';
+import {
+  categorizeProduct,
+  getCategory,
+  isFamilySlug,
+} from '@/constants/product-categories';
 import { PageHero } from '@/components/ui/PageHero';
 
 interface CategoryPageProps {
@@ -18,10 +22,11 @@ interface CategoryPageProps {
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
   const { locale, slug } = await params;
   const category = getCategory(slug);
-  if (!category) return {};
+  const family = isFamilySlug(slug) ? slug : null;
+  if (!category && !family) return {};
 
   const t = await getTranslations({ locale, namespace: 'products' });
-  const label = t(`categories.${category.slug}`);
+  const label = t(`categories.${slug}`);
   // Exact SEO format requested: "[category] | Plastic Company".
   // `absolute` bypasses the layout's default title template.
   const title = `${label} | ${siteConfig.name}`;
@@ -48,7 +53,8 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
 export default async function ProductCategoryPage({ params }: CategoryPageProps) {
   const { locale, slug } = await params;
   const category = getCategory(slug);
-  if (!category) notFound();
+  const family = isFamilySlug(slug) ? slug : null;
+  if (!category && !family) notFound();
 
   const [t, tCommon] = await Promise.all([
     getTranslations({ locale, namespace: 'products' }),
@@ -56,6 +62,10 @@ export default async function ProductCategoryPage({ params }: CategoryPageProps)
   ]);
 
   const products = await prisma.product.findMany({
+    where: {
+      published: true,
+      ...(family ? { categoryFamily: family } : {}),
+    },
     orderBy: { createdAt: 'desc' },
     include: {
       images: { orderBy: { sortOrder: 'asc' } },
@@ -64,13 +74,14 @@ export default async function ProductCategoryPage({ params }: CategoryPageProps)
 
   const isEn = locale === 'en';
   const isAr = locale === 'ar';
-  const label = t(`categories.${category.slug}`);
+  const label = t(`categories.${slug}`);
 
-  // Keep only products whose auto-detected category matches this page.
   const cards = products
-    .filter((p: any) => categorizeProduct(p.name, p.nameEn, p.slug) === category.slug)
-    .map((p:any) => {
-      const primaryImage = p.images.find((img: any) => img.isPrimary) ?? p.images[0] ?? null;
+    .filter((p) => family !== null || (
+      category !== undefined && categorizeProduct(p.name, p.nameEn, p.slug) === category.slug
+    ))
+    .map((p) => {
+      const primaryImage = p.images.find((img) => img.isPrimary) ?? p.images[0] ?? null;
       return {
         name: isAr
           ? (p.nameAr?.trim()    || p.name || p.nameEn || '')
@@ -97,15 +108,24 @@ export default async function ProductCategoryPage({ params }: CategoryPageProps)
         <div className="mt-8">
           {cards.length === 0 ? (
             <div className="py-16 text-center text-slate-400">
-              {t('listing.empty')}
-              <div className="mt-4">
-                <Link href="/products" className="font-semibold text-[#0D9488] hover:underline">
-                  {t('categories.all')}
-                </Link>
-              </div>
+              {family ? t('listing.familyEmpty') : t('listing.empty')}
+              {!family && (
+                <div className="mt-4">
+                  <Link href="/products" className="font-semibold text-[#0D9488] hover:underline">
+                    {t('categories.all')}
+                  </Link>
+                </div>
+              )}
             </div>
           ) : (
             <ProductGrid products={cards} />
+          )}
+          {family && (
+            <div className="mt-4 text-center">
+              <Link href="/products" className="font-semibold text-[#0D9488] hover:underline">
+                {t('listing.viewAll')}
+              </Link>
+            </div>
           )}
         </div>
       </div>

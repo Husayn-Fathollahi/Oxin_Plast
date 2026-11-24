@@ -21,6 +21,18 @@ export type CategorySlug =
   | 'bulk-barrels'
   | 'home-accessories';
 
+// Add confirmed product slugs to their family; unmapped products are excluded.
+export const familyProductSlugs = {
+  'pedal-bins': [],
+  'picnic-baskets': [],
+} satisfies Record<string, string[]>;
+
+export type FamilySlug = keyof typeof familyProductSlugs;
+
+export function isFamilySlug(slug: string): slug is FamilySlug {
+  return Object.prototype.hasOwnProperty.call(familyProductSlugs, slug);
+}
+
 export interface CategoryDef {
   slug: CategorySlug;
   /** Canonical Persian label (display goes through i18n, this is the fallback). */

@@ -20,6 +20,7 @@ const ProductSchema = z.object({
   descriptionEn: z.string().trim().optional().or(z.literal('')),
   descriptionAr: z.string().trim().optional().or(z.literal('')),
   image: z.string().trim().url('Image must be a valid URL').optional().or(z.literal('')),
+  categoryFamily: z.enum(['', 'pedal-bins', 'picnic-baskets']).optional(),
   published: z.boolean().optional().default(false),
   isFeatured: z.boolean().optional().default(false),
   specifications: z.record(z.string(), z.string()).nullable().optional(),
@@ -73,7 +74,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: false, errors }, { status: 400 });
   }
 
-  const { image, nameEn, nameAr, excerptEn, excerptAr, descriptionEn, descriptionAr, specifications, ...rest } = parsed.data;
+  const { image, nameEn, nameAr, excerptEn, excerptAr, descriptionEn, descriptionAr, specifications, categoryFamily, ...rest } = parsed.data;
 
   try {
     const product = await prisma.product.create({
@@ -87,6 +88,7 @@ export async function POST(request: Request) {
         descriptionEn: descriptionEn || null,
         descriptionAr: descriptionAr || null,
         specifications: specifications ?? undefined,
+        categoryFamily: categoryFamily || null,
       },
     });
     return NextResponse.json({ success: true, data: product }, { status: 201 });

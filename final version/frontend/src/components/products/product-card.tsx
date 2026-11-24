@@ -13,7 +13,7 @@ export interface ProductCardProps {
   category?: string;
 }
 
-const FALLBACK = '/images/3d/3d-pedal-bin.jpg';
+const FALLBACK = '/images/product-placeholder.svg';
 
 function resolve(src?: string) {
   if (!src) return FALLBACK;

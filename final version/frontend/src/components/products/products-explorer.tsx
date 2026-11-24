@@ -3,12 +3,13 @@
 import { useMemo, useState } from 'react';
 import { ProductCard, type ProductCardProps } from './product-card';
 
-/** A product card enriched with the category slug it belongs to (or null). */
+/** A product card enriched with family/category info for tab filtering. */
 export interface ExplorerCard extends ProductCardProps {
   categorySlug: string | null;
+  categoryFamily: string | null;
 }
 
-/** A category tab shown above the grid. */
+/** A tab shown above the grid. slug='all' is the "show everything" tab. */
 export interface ExplorerCategory {
   slug: string;
   label: string;
@@ -38,7 +39,7 @@ export function ProductsExplorer({
   const [active, setActive] = useState<string>('all');
 
   const filtered = useMemo(
-    () => (active === 'all' ? cards : cards.filter((c) => c.categorySlug === active)),
+    () => (active === 'all' ? cards : cards.filter((c) => c.categoryFamily === active)),
     [active, cards],
   );
 

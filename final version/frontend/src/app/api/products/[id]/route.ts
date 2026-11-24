@@ -160,6 +160,7 @@ const PatchProductSchema = z.object({
   descriptionEn: z.string().trim().optional().or(z.literal('')),
   descriptionAr: z.string().trim().optional().or(z.literal('')),
   image: z.string().trim().url('Image must be a valid URL').optional().or(z.literal('')),
+  categoryFamily: z.enum(['', 'pedal-bins', 'picnic-baskets']).optional(),
   published: z.boolean().optional(),
   isFeatured: z.boolean().optional(),
   specifications: z.record(z.string(), z.string()).nullable().optional(),
@@ -224,6 +225,7 @@ export async function PATCH(
     descriptionEn,
     descriptionAr,
     specifications,
+    categoryFamily,
     deletedImageIds,
     ...rest
   } = parsed.data;
@@ -238,6 +240,7 @@ export async function PATCH(
   if (descriptionEn !== undefined) data.descriptionEn = descriptionEn || null;
   if (descriptionAr !== undefined) data.descriptionAr = descriptionAr || null;
   if (specifications !== undefined) data.specifications = specifications ?? null;
+  if (categoryFamily !== undefined) data.categoryFamily = categoryFamily || null;
 
   try {
     // Delete requested images from database

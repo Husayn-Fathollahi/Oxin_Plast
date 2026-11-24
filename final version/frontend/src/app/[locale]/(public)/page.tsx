@@ -79,7 +79,7 @@ export default async function HomePage({ params }: HomePageProps) {
 
   const families = [
     {
-      href: '/products',
+      href: '/products/category/pedal-bins',
       img: '/images/3d/3d-pedal-bin.jpg',
       fa: 'سطل‌های پدالی',
       en: 'Pedal Bins',
@@ -87,7 +87,7 @@ export default async function HomePage({ params }: HomePageProps) {
       spec: '20–60 L · Soft-Close',
     },
     {
-      href: '/products',
+      href: '/products/category/picnic-baskets',
       img: '/images/3d/3d-picnic-basket.jpg',
       fa: 'سبد پیک‌نیک ۴ قفل',
       en: '4-Lock Picnic Baskets',
@@ -193,10 +193,10 @@ export default async function HomePage({ params }: HomePageProps) {
           <div className="container mx-auto">
             <div className="grid grid-cols-2 gap-px bg-slate-100 lg:grid-cols-4">
               {[
-                { n: '۲۰+',  l: isAr ? 'سنوات خبرة'    : isEn ? 'Years Experience' : 'سال تجربه',   a: 'bg-[#0D9488]' },
-                { n: '۵۰+',  l: isAr ? 'موديل منتج'    : isEn ? 'Product Models'   : 'مدل محصول',   a: 'bg-[#164E53]' },
-                { n: '۱۰۰٪', l: isAr ? 'PP بهداشتي'    : isEn ? 'PP Food Grade'    : 'PP بهداشتی',  a: 'bg-[#0D9488]' },
-                { n: '۳۱',   l: isAr ? 'محافظة مخدومة' : isEn ? 'Provinces Served' : 'استان پوشش',  a: 'bg-[#164E53]' },
+                { n: '45+',  l: isAr ? 'سنوات خبرة'    : isEn ? 'Years Experience' : 'سال تجربه',   a: 'bg-[#0D9488]' },
+                { n: '50',  l: isAr ? 'موديل منتج'    : isEn ? 'Product Models'   : 'مدل محصول',   a: 'bg-[#164E53]' },
+                { n: '100%', l: isAr ? 'PP بهداشتي'    : isEn ? 'PP Food Grade'    : 'PP بهداشتی',  a: 'bg-[#0D9488]' },
+                { n: '31',   l: isAr ? 'محافظة مخدومة' : isEn ? 'Provinces Served' : 'استان پوشش',  a: 'bg-[#164E53]' },
               ].map(({ n, l, a }) => (
                 <div key={l} className="flex flex-col gap-3 bg-white px-8 py-12">
                   <div className={`h-0.5 w-12 ${a}`} />

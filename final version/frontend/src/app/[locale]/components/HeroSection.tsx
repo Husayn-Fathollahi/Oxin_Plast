@@ -185,11 +185,6 @@ function TunnelCard({ card, progress, pointer, total, stage, reduceMotion, local
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           priority={card.index < 3}
         />
-        <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/85 via-black/10 to-transparent p-1.5 sm:p-4">
-          <span className={stage.isMobile ? 'text-[8px] font-bold leading-[1.15] text-white drop-shadow' : 'text-[10px] font-bold leading-4 text-white drop-shadow sm:text-xs sm:leading-5'}>
-            {card.item.title[locale]}
-          </span>
-        </div>
       </div>
     </motion.article>
   );

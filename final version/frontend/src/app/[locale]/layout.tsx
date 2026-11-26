@@ -3,6 +3,7 @@ import { Inter, Vazirmatn, Playfair_Display, Sora } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import NextTopLoader from 'nextjs-toploader';
+import { getTitleBrand } from '@/features/seo/utils/generate-metadata';
 import { rtlLocales } from '@/lib/i18n/locales';
 import '../../styles/globals.css';
 
@@ -30,17 +31,25 @@ const playfair = Playfair_Display({
   style: ['normal', 'italic'],
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: 'اکسین پلاست',
-    template: '%s | اکسین پلاست',
-  },
-  description: 'تولیدکننده قطعات پلاستیکی صنعتی — محصولات با کیفیت از ۱۳۶۹.',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://plasticcompany.ir'),
-  icons: {
-    icon: '/images/logo/logo.webp',
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const brand = getTitleBrand(locale);
+  return {
+    title: {
+      default: brand,
+      template: `%s | ${brand}`,
+    },
+    description: 'تولیدکننده قطعات پلاستیکی صنعتی — محصولات با کیفیت از ۱۳۶۹.',
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://plasticcompany.ir'),
+    icons: {
+      icon: '/images/logo/logo.webp',
+    },
+  };
+}
 
 export default async function LocaleLayout({
   children,

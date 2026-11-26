@@ -44,7 +44,7 @@ export async function Footer() {
 
             {/* Certification badges — no colour, just crisp border */}
             <div className="flex flex-wrap gap-1.5">
-              {['Food Grade PP', 'ISO 9001', 'ضمانت کیفیت'].map((badge) => (
+              {['PP' , 'ISO 9001', 'ضمانت کیفیت'].map((badge) => (
                 <span
                   key={badge}
                   className="rounded border border-slate-200 bg-slate-50 px-2 py-0.5 text-[11px] font-semibold text-slate-500"

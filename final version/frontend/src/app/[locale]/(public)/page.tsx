@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
   const title = t('meta.title');
   const description = t('meta.description');
   return {
-    title,
+    title: { absolute: title },
     description,
     alternates: buildAlternates(locale),
     openGraph: {
@@ -89,7 +89,7 @@ export default async function HomePage({ params }: HomePageProps) {
     {
       href: '/products/category/picnic-baskets',
       img: '/images/3d/3d-picnic-basket.jpg',
-      fa: 'سبد پیک‌نیک ۴ قفل',
+      fa: 'سبد پیک‌نیک',
       en: '4-Lock Picnic Baskets',
       ar: 'سلال نزهة 4 أقفال',
       spec: '12–45 L · UV Stable',
@@ -102,9 +102,9 @@ export default async function HomePage({ params }: HomePageProps) {
       q: isAr ? 'ما المواد المستخدمة في سلال الدواسة؟'
         : isEn ? 'What materials are used in the pedal bins?'
               : 'سطل‌های پدالی از چه موادی ساخته شده‌اند؟',
-      a: isAr ? 'نستخدم بولي بروبيلين (PP) بكراً بنسبة 100٪ بجودة Food Grade — مقاوم للصدمات والرطوبة ومعتمد للبيئات الغذائية.'
-        : isEn ? 'We use 100% virgin polypropylene (PP) Food Grade — impact-resistant, moisture-proof and approved for food-contact environments.'
-              : 'از پلی‌پروپیلن (PP) ۱۰۰٪ بکر و بهداشتی (Food Grade) استفاده می‌کنیم؛ مقاوم در برابر ضربه، رطوبت و مواد شیمیایی، با تأییدیه ایمنی مواد غذایی.',
+      a: isAr ? 'نستخدم بولي بروبيلين (PP) بكراً بنسبة 100٪ بجودة  — مقاوم للصدمات والرطوبة ومعتمد للبيئات الغذائية.'
+        : isEn ? 'We use 100% virgin polypropylene (PP) — impact-resistant, moisture-proof and approved for food-contact environments.'
+              : 'از پلی‌پروپیلن (PP) ۱۰۰٪ بکر و بهداشتی  استفاده می‌کنیم؛ مقاوم در برابر ضربه، رطوبت و مواد شیمیایی، با تأییدیه ایمنی مواد غذایی.',
     },
     {
       q: isAr ? 'ما هو الحد الأدنى لكمية الطلب؟'
@@ -149,10 +149,10 @@ export default async function HomePage({ params }: HomePageProps) {
 
   // ── Trust marquee — language-aware ───────────────────────────────────────
   const trustItems = isAr
-    ? ['PP بكر 100٪', 'Food Grade', 'مواد خام درجة أولى', 'تغليف التصدير', 'تسليم من المصنع', 'ضمان الجودة']
+    ? ['PP بكر 100٪', , 'مواد خام درجة أولى', 'تغليف التصدير', 'تسليم من المصنع', 'ضمان الجودة']
     : isEn
-      ? ['100% Virgin PP', 'Food Grade', 'Premium Raw Material', 'Export Palletized', 'Ex-Factory Delivery', 'Quality Assured']
-      : ['PP ۱۰۰٪ بهداشتی', 'Food Grade', 'تولید از مواد اولیه درجه یک', 'بسته‌بندی پالتایز صادراتی', 'تحویل از درب کارخانه', 'ضمانت کیفیت'];
+      ? ['100% Virgin PP', , 'Premium Raw Material', 'Export Palletized', 'Ex-Factory Delivery', 'Quality Assured']
+      : ['PP ۱۰۰٪ بهداشتی', , 'تولید از مواد اولیه درجه یک', 'بسته‌بندی پالتایز صادراتی', 'تحویل از درب کارخانه', 'ضمانت کیفیت'];
 
   return (
     <div className="overflow-clip">
@@ -195,7 +195,7 @@ export default async function HomePage({ params }: HomePageProps) {
               {[
                 { n: '45+',  l: isAr ? 'سنوات خبرة'    : isEn ? 'Years Experience' : 'سال تجربه',   a: 'bg-[#0D9488]' },
                 { n: '50',  l: isAr ? 'موديل منتج'    : isEn ? 'Product Models'   : 'مدل محصول',   a: 'bg-[#164E53]' },
-                { n: '100%', l: isAr ? 'PP بهداشتي'    : isEn ? 'PP Food Grade'    : 'PP بهداشتی',  a: 'bg-[#0D9488]' },
+                { n: '100%', l: isAr ? 'PP بهداشتي'    : isEn ? 'PP '    : 'PP بهداشتی',  a: 'bg-[#0D9488]' },
                 { n: '31',   l: isAr ? 'محافظة مخدومة' : isEn ? 'Provinces Served' : 'استان پوشش',  a: 'bg-[#164E53]' },
               ].map(({ n, l, a }) => (
                 <div key={l} className="flex flex-col gap-3 bg-white px-8 py-12">
@@ -330,9 +330,9 @@ export default async function HomePage({ params }: HomePageProps) {
               { img: '/images/3d/3d-tile-wholesale.jpg', fa: 'بنکداران', en: 'Wholesalers', ar: 'تجار الجملة' },
               { img: '/images/3d/3d-tile-retail.jpg', fa: 'فروشگاه‌های زنجیره‌ای', en: 'Retail Chains', ar: 'سلاسل البيع' },
               { img: '/images/3d/3d-tile-delivery.jpg', fa: 'صادرکنندگان', en: 'Exporters', ar: 'المصدّرون' },
-              { img: '/images/3d/3d-picnic-basket.jpg', fa: 'هتل و رستوران', en: 'Hotels & F&B', ar: 'الفنادق والمطاعم' },
-              { img: '/images/3d/3d-tile-quality.jpg', fa: 'بیمارستان و کلینیک', en: 'Hospitals & Clinics', ar: 'المستشفيات' },
-              { img: '/images/3d/3d-pedal-bin.jpg', fa: 'ادارات و شرکت‌ها', en: 'Offices & Corps', ar: 'المكاتب والشركات' },
+              { img: '/images/3d/3d-tile-hotel-dining.webp', fa: 'هتل و رستوران', en: 'Hotels & F&B', ar: 'الفنادق والمطاعم' },
+              { img: '/images/3d/3d-tile-clinic-exterior.webp', fa: 'بیمارستان و کلینیک', en: 'Hospitals & Clinics', ar: 'المستشفيات' },
+              { img: '/images/3d/3d-tile-office-team.webp', fa: 'ادارات و شرکت‌ها', en: 'Offices & Corps', ar: 'المكاتب والشركات' },
             ].map(({ img, fa, en, ar }) => (
               <div
                 key={fa}
@@ -387,7 +387,7 @@ export default async function HomePage({ params }: HomePageProps) {
                   <div className="mt-8 grid gap-4 sm:grid-cols-2">
                     {[
                       {
-                        img: '/images/3d/3d-tile-quality.jpg',
+                        img: '/images/3d/feature-pp-granules.webp',
                         fa_t: 'مواد اولیه درجه یک',
                         en_t: 'Premium Raw Material',
                         ar_t: 'مواد خام من الدرجة الأولى',
@@ -396,7 +396,7 @@ export default async function HomePage({ params }: HomePageProps) {
                         ar_d: 'PP بكر 100٪ للاستخدام الغذائي.',
                       },
                       {
-                        img: '/images/3d/3d-tile-delivery.jpg',
+                        img: '/images/3d/feature-factory-dispatch.webp',
                         fa_t: 'تحویل از درب کارخانه',
                         en_t: 'Ex-Factory Delivery',
                         ar_t: 'تسليم من المصنع',
@@ -405,7 +405,7 @@ export default async function HomePage({ params }: HomePageProps) {
                         ar_d: 'مخزون جاهز وتغليف منصات للتصدير.',
                       },
                       {
-                        img: '/images/3d/3d-tile-custom.jpg',
+                        img: '/images/3d/feature-custom-lineup.webp',
                         fa_t: 'رنگ و سایز سفارشی',
                         en_t: 'Custom Color & Size',
                         ar_t: 'ألوان وأحجام مخصصة',
@@ -414,7 +414,7 @@ export default async function HomePage({ params }: HomePageProps) {
                         ar_d: 'سلال 20–60 لتر، سلال نزهة 12–45 لتر.',
                       },
                       {
-                        img: '/images/3d/3d-factory-pallets.jpg',
+                        img: '/images/3d/feature-production-scale.webp',
                         fa_t: 'تیراژ کارخانه‌ای',
                         en_t: 'Factory Scale',
                         ar_t: 'إنتاج صناعي',

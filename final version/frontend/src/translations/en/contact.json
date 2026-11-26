@@ -20,5 +20,5 @@
     "message": "Message and estimated volume", "messagePlaceholder": "Tell us the product, estimated quantity, colour, or required specifications...",
     "submit": "Send enquiry to sales", "sending": "Sending...", "successTitle": "Enquiry received", "successMessage": "Thank you for contacting us. Our sales team will review your request.", "sendAnother": "Submit another enquiry", "errorMessage": "The enquiry could not be sent. Please try again."
   },
-  "validation": { "nameRequired": "Full name is required", "emailInvalid": "Enter a valid email address", "phoneRequired": "Phone number is required", "productTypeRequired": "Select a product or business category", "messageRequired": "Enter a message or estimated volume" }
+  "validation": { "nameRequired": "Full name is required", "nameTooShort": "Enter at least 2 characters for your name", "emailInvalid": "Enter a valid email address", "phoneRequired": "Phone number is required", "productTypeRequired": "Select a product or business category", "messageRequired": "Enter a message or estimated volume", "messageTooShort": "Enter at least 10 characters for your message" }
 }

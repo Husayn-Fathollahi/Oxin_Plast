@@ -5,6 +5,12 @@ import { siteConfig } from '@/config/site-config';
 const BASE_URL = siteConfig.siteUrl.replace(/\/$/, '');
 const LOCALES = ['fa', 'en'] as const;
 
+export function getTitleBrand(locale: string): string {
+  if (locale === 'en') return 'Salman Plastic';
+  if (locale === 'ar') return 'سلمان بلاستيك';
+  return 'سلمان پلاست';
+}
+
 /**
  * Builds canonical + hreflang alternates for a given locale and path.
  * @param locale  – current locale, e.g. 'fa' or 'en'

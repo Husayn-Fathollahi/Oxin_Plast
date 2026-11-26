@@ -44,7 +44,7 @@ function Field({ id, label, required, error, icon, children }: FieldProps) {
       </label>
       {children}
       {error && (
-        <p className="flex items-center gap-1 text-xs text-red-700">
+        <p id={`${id}-error`} className="flex items-center gap-1 text-xs text-red-700">
           <AlertCircle className="h-3 w-3 shrink-0" />
           {error}
         </p>
@@ -69,6 +69,7 @@ export function ContactForm() {
   ) {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
+    if (status === 'error') setStatus('idle');
     if (errors[name as keyof FormState]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
@@ -77,11 +78,13 @@ export function ContactForm() {
   function validate(): boolean {
     const newErrors: Partial<Record<keyof FormState, string>> = {};
     if (!form.name.trim()) newErrors.name = t('validation.nameRequired');
+    else if (form.name.trim().length < 2) newErrors.name = t('validation.nameTooShort');
     if (!form.phone.trim()) newErrors.phone = t('validation.phoneRequired');
     if (!form.subject.trim()) newErrors.subject = t('validation.productTypeRequired');
     if (form.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()))
       newErrors.email = t('validation.emailInvalid');
     if (!form.message.trim()) newErrors.message = t('validation.messageRequired');
+    else if (form.message.trim().length < 10) newErrors.message = t('validation.messageTooShort');
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   }
@@ -115,7 +118,7 @@ export function ContactForm() {
 
   if (status === 'success') {
     return (
-      <div className="flex flex-col items-center justify-center gap-4 py-12 text-center">
+      <div role="status" className="flex flex-col items-center justify-center gap-4 py-12 text-center">
           <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-teal-50">
           <CheckCircle className="h-8 w-8 text-[#16776F]" />
         </div>
@@ -160,14 +163,17 @@ export function ContactForm() {
             value={form.name}
             onChange={handleChange}
             autoComplete="name"
+            maxLength={100}
+            required
             placeholder={t('form.namePlaceholder')}
             aria-invalid={Boolean(errors.name)}
+            aria-describedby={errors.name ? 'name-error' : undefined}
             className={inputBase + (errors.name ? 'border-red-400 bg-red-50' : 'border-slate-300')}
           />
         </Field>
 
         <Field id="phone" label={t('form.phone')} required error={errors.phone} icon={<Phone className="h-3.5 w-3.5" />}>
-          <input id="phone" name="phone" type="tel" value={form.phone} onChange={handleChange} autoComplete="tel" placeholder={t('form.phonePlaceholder')} aria-invalid={Boolean(errors.phone)} className={inputBase + (errors.phone ? 'border-red-400 bg-red-50' : 'border-slate-300')} />
+          <input id="phone" name="phone" type="tel" value={form.phone} onChange={handleChange} autoComplete="tel" maxLength={20} required placeholder={t('form.phonePlaceholder')} aria-invalid={Boolean(errors.phone)} aria-describedby={errors.phone ? 'phone-error' : undefined} className={inputBase + (errors.phone ? 'border-red-400 bg-red-50' : 'border-slate-300')} />
         </Field>
       </div>
 
@@ -185,7 +191,9 @@ export function ContactForm() {
             name="subject"
             value={form.subject}
             onChange={handleChange}
+            required
             aria-invalid={Boolean(errors.subject)}
+            aria-describedby={errors.subject ? 'subject-error' : undefined}
             className={inputBase + (errors.subject ? 'border-red-400 bg-red-50' : 'border-slate-300')}
           >
             <option value="">{t('form.productTypePlaceholder')}</option>
@@ -197,7 +205,7 @@ export function ContactForm() {
           </select>
         </Field>
         <Field id="email" label={t('form.email')} error={errors.email} icon={<Mail className="h-3.5 w-3.5" />}>
-          <input id="email" name="email" type="email" value={form.email} onChange={handleChange} autoComplete="email" placeholder={t('form.emailPlaceholder')} className={inputBase + (errors.email ? 'border-red-400 bg-red-50' : 'border-slate-300')} />
+          <input id="email" name="email" type="email" value={form.email} onChange={handleChange} autoComplete="email" placeholder={t('form.emailPlaceholder')} aria-invalid={Boolean(errors.email)} aria-describedby={errors.email ? 'email-error' : undefined} className={inputBase + (errors.email ? 'border-red-400 bg-red-50' : 'border-slate-300')} />
         </Field>
       </div>
 
@@ -213,9 +221,12 @@ export function ContactForm() {
           id="message"
           name="message"
           rows={5}
+          maxLength={1000}
+          required
           value={form.message}
           onChange={handleChange}
           aria-invalid={Boolean(errors.message)}
+          aria-describedby={errors.message ? 'message-error' : undefined}
           placeholder={t('form.messagePlaceholder')}
           className={
             inputBase +
@@ -228,7 +239,7 @@ export function ContactForm() {
 
       {/* Error banner — only shown for server/network errors without field-level detail */}
       {status === 'error' && !errors.name && !errors.email && !errors.message && !errors.phone && !errors.subject && (
-        <div className="flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+        <div role="alert" className="flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
           <AlertCircle className="h-4 w-4 shrink-0" />
           {errors.server ?? t('form.errorMessage')}
         </div>

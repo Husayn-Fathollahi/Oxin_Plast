@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { seoConfig } from '@/config/seo-config';
-import { buildAlternates } from '@/features/seo/utils/generate-metadata';
+import { buildAlternates, getTitleBrand } from '@/features/seo/utils/generate-metadata';
 import { prisma } from '@/lib/prisma';
 import {
   ProductsExplorer,
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: ProductsPageProps): Promise<M
   const title = t('meta.listingTitle');
   const description = t('meta.listingDescription');
   return {
-    title,
+    title: locale === 'fa' ? { absolute: `${title} || ${getTitleBrand(locale)}` } : title,
     description,
     alternates: buildAlternates(locale, 'products'),
     openGraph: {

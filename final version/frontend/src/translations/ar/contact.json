@@ -20,5 +20,5 @@
     "message": "الرسالة والكمية التقديرية", "messagePlaceholder": "اذكر المنتج والكمية التقريبية واللون أو المواصفات المطلوبة...",
     "submit": "إرسال الطلب إلى المبيعات", "sending": "جارٍ الإرسال...", "successTitle": "تم استلام طلبك", "successMessage": "شكراً لتواصلك معنا. سيراجع فريق المبيعات طلبك.", "sendAnother": "إرسال طلب آخر", "errorMessage": "تعذر إرسال الطلب. يرجى المحاولة مرة أخرى."
   },
-  "validation": { "nameRequired": "الاسم الكامل مطلوب", "emailInvalid": "يرجى إدخال بريد إلكتروني صحيح", "phoneRequired": "رقم الهاتف مطلوب", "productTypeRequired": "يرجى اختيار فئة المنتج أو النشاط", "messageRequired": "يرجى إدخال رسالة أو كمية تقديرية" }
+  "validation": { "nameRequired": "الاسم الكامل مطلوب", "nameTooShort": "يجب أن يتكون الاسم من حرفين على الأقل", "emailInvalid": "يرجى إدخال بريد إلكتروني صحيح", "phoneRequired": "رقم الهاتف مطلوب", "productTypeRequired": "يرجى اختيار فئة المنتج أو النشاط", "messageRequired": "يرجى إدخال رسالة أو كمية تقديرية", "messageTooShort": "يجب أن تتكون الرسالة من 10 أحرف على الأقل" }
 }

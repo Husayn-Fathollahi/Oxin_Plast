@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 import { ArrowRight, Mail, User, Phone, Calendar, MessageSquare } from 'lucide-react';
 import { prisma } from '@/lib/prisma';
 import { Link } from '@/lib/i18n/navigation';
@@ -23,11 +24,20 @@ export default async function MessageDetailPage({
 }: {
   params: Promise<{ id: string; locale: string }>;
 }) {
-  const { id } = await params;
+  const { id, locale } = await params;
 
   const msg = await prisma.message.findUnique({ where: { id } });
 
   if (!msg) notFound();
+
+  const t = await getTranslations({ locale, namespace: 'contact.form.productTypes' });
+  const subjectLabels: Record<string, string> = {
+    'pedal-bins': t('pedalBins'),
+    'picnic-baskets': t('picnicBaskets'),
+    'polymer-containers': t('polymerContainers'),
+    'custom-wholesale': t('customWholesale'),
+    other: t('other'),
+  };
 
   return (
     <div className="mx-auto max-w-2xl">
@@ -77,6 +87,13 @@ export default async function MessageDetailPage({
               <a href={`tel:${msg.phone}`} className="text-blue-600 hover:underline">
                 {msg.phone}
               </a>
+            </Detail>
+          )}
+          {msg.subject && (
+            <Detail icon={<MessageSquare className="h-4 w-4" />} label="Subject">
+              {Object.prototype.hasOwnProperty.call(subjectLabels, msg.subject)
+                ? subjectLabels[msg.subject]
+                : msg.subject}
             </Detail>
           )}
           <Detail icon={<Calendar className="h-4 w-4" />} label="Received">

@@ -114,7 +114,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
     {
       y: '2014',
       t: isAr ? 'معايير الجودة' : isEn ? 'Quality Standards' : 'استاندارد کیفیت',
-      d: isAr ? 'تعزيز مراقبة الجودة ودرجة الغذاء.' : isEn ? 'Stronger QC and food-grade focus.' : 'تقویت کنترل کیفی و تمرکز Food Grade.',
+      d: isAr ? 'تعزيز مراقبة الجودة ودرجة الغذاء.' : isEn ? 'Stronger QC and food-grade focus.' : 'تقویت کنترل کیفی و تمرکز .',
     },
     {
       y: '2021',

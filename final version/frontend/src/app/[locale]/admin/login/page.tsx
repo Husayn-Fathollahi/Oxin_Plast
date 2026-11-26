@@ -62,7 +62,7 @@ export default function AdminLoginPage() {
               <path d="M3 7l9-4 9 4-9 4-9-4z" /><path d="M3 7v10l9 4 9-4V7" /><path d="M12 11v10" />
             </svg>
           </span>
-          <span className="display text-lg">Oxin Plast</span>
+          <span className="display text-lg">Salman Plastic</span>
         </div>
 
         <div className="relative">

@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { seoConfig } from '@/config/seo-config';
 import { siteConfig } from '@/config/site-config';
-import { buildAlternates } from '@/features/seo/utils/generate-metadata';
+import { buildAlternates, getTitleBrand } from '@/features/seo/utils/generate-metadata';
 import { prisma } from '@/lib/prisma';
 import { ProductGrid } from '@/components/products/product-grid';
 import { Breadcrumbs } from '@/components/common/breadcrumbs';
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   const description = t('meta.listingDescription');
 
   return {
-    title: { absolute: title },
+    title: { absolute: `${label} | ${getTitleBrand(locale)}` },
     description,
     alternates: buildAlternates(locale, `products/category/${slug}`),
     openGraph: {

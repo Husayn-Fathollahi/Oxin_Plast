@@ -20,8 +20,8 @@ export const siteConfig = {
 
   contact: {
     address: 'Tehran, Iran',
-    phone: '+98 992 888 3595',
-    email: 'info@plasticcompany.ir',
+    phone: '+98 9126766584',
+    email: 'salmanplastic@gmail.com',
   },
 
   social: {
